@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Agenda de Reservas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 40px auto;
+      max-width: 900px;
+      padding: 0 20px;
+    }
+    #calendar {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Agenda pruebas</h2>
+  <div id="calendar"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const calendarEl = document.getElementById('calendar');
+
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'es', 
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,listWeek'
+        },
+        events: [
+          {
+            title: 'Reserva Palapa - Casa 12',
+            start: '2025-04-20',
+            end: '2025-04-21'
+          },
+          {
+            title: 'Fiesta Cumpleaños Casa 18',
+            start: '2025-04-25T18:00:00',
+            end: '2025-04-25T23:00:00'
+          },
+          {
+            title: 'Mantenimiento Alberca',
+            start: '2025-04-28',
+            allDay: true
+          }
+        ]
+      });
+
+      calendar.render();
+    });
+  </script>
+</body>
+</html>
