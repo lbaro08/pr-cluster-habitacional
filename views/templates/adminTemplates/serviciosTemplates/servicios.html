@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bienvenido</title>
+  <!-- Bootstrap 5 CDN -->
+  <link href="../../../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../styles/adminsStyles/serviciosStyles/servicios.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container py-5">
+    <div class="bienvenida mx-auto text-center position-relative" style="max-width: 90%;">
+      <div class="titulo">Servicios Actuales</div>
+    <div class="table-container">
+
+      <div class="container mt-4 mb-4">
+        <div class="input-group rounded shadow-sm" style="max-width: 500px; margin: auto;">
+          <input type="text" class="form-control rounded-start-pill border-end-0" placeholder="Buscar..." aria-label="Buscar" style="border-color: black;">
+            <button class="btn btn-outline-secondary rounded-end-pill border-start-0" type="button">
+            <img  src="../../../assets/pics/icon_verificar.png" class="btn-search" alt="usuarios">
+          </button>
+        </div>
+      </div>
+
+    
+            <table class="table table-bordered text-center align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>Id</th>
+                  <th>Concepto</th>
+                  <th>Costo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Aquí puedes insertar dinámicamente los registros de tu base de datos -->
+                <tr>
+                  <td>xxx</td>
+                  <td>Limpieza de alberca</td>
+                  <td>300</td>
+                </tr>
+                <tr>
+                  <td>xxx</td>
+                  <td>Luz</td>
+                  <td>202</td>
+                </tr>
+              </tbody>
+            </table>
+
+    </div><!--Fin del contenedor de la tabla y el buscador-->
+
+    
+  <div class="container my-4">
+    <div class="row justify-content-center g-3">
+      <div class="col-6 col-md-3">
+        <button class="btn btn-light w-100 p-3 rounded-4 shadow-sm d-flex flex-column align-items-center custom-btn">
+          <img src="../../../assets/pics/icon_servicios.png" alt="Añadir" class="mb-2" width="120" height="120">
+          <span>Añadir servicio</span>
+        </button>
+      </div>
+      <div class="col-6 col-md-3">
+        <button class="btn btn-light w-100 p-3 rounded-4 shadow-sm d-flex flex-column align-items-center custom-btn">
+          <img src="../../../assets/pics/icon_rechazado.png" alt="Eliminar" class="mb-2" width="120" height="120">
+          <span>Eliminar servicio</span>
+        </button>
+      </div>
+      <div class="col-6 col-md-3">
+        <button class="btn btn-light w-100 p-3 rounded-4 shadow-sm d-flex flex-column align-items-center custom-btn">
+          <img src="../../../assets/pics/icon_modificar.png" alt="Modificar" class="mb-2" width="120" height="120">
+          <span>Modificar servicio</span>
+        </button>
+      </div>
+      <div class="col-6 col-md-3">
+        <button class="btn btn-light w-100 p-3 rounded-4 shadow-sm d-flex flex-column align-items-center custom-btn">
+          <img src="../../../assets/pics/icon_cobrar.png" alt="Cobrar" class="mb-2" width="120" height="120">
+          <span>Cobrar todos los servicios</span>
+        </button>
+      </div>
+    </div>
+  </div><!-- Fin de la botonetra-->
+
+
+
+  </div><!--Contenedor blanquito aqui meter cosas-->
+</div> <!-- Contenedor grandote-->
+
+
+
+
+
+<!-- Bootstrap JS (opcional si agregas interacciones con JS o modales) -->
+<script src="../../../../../bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

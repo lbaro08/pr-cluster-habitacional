@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bienvenido</title>
+  <!-- Bootstrap 5 CDN -->
+  <link href="../../../../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../../styles/adminsStyles/residentesStyles/usuariosStyles/usuarios.css" rel="stylesheet">
+  <link href="../../../../styles/adminsStyles/residentesStyles/usuariosStyles/agregarUsuario.css" rel="stylesheet">
+  
+
+</head>
+<body>
+    <div class="container py-5">
+        <div class="bienvenida mx-auto text-center position-relative" style="max-width: 90%; max-height: 650px;">
+          <div class="titulo">Alta de un nuevo Usuario</div>
+      
+    <div class="container my-5 form-container">
+        <div class="form-box mx-auto" style="max-width: 600px;">
+      
+          <form class="mt-4">
+            <div class="mb-3">
+              <label for="rfc" class="form-label">RFC:</label>
+              <input type="text" id="rfc" class="form-control">
+            </div>
+      
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre:</label>
+              <input type="text" id="nombre" class="form-control">
+            </div>
+      
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="telefono" class="form-label">Teléfono:</label>
+                <input type="text" id="telefono" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label for="correo" class="form-label">Correo:</label>
+                <input type="email" id="correo" class="form-control">
+              </div>
+            </div>
+      
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <label for="contrasena" class="form-label">Contraseña Temporal:</label>
+                <input type="password" id="contrasena" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label for="tipo" class="form-label">Tipo de Usuario:</label>
+                <select id="tipo" class="form-select">
+                    <option value="" disabled selected>Selecciona un tipo</option>
+                    <option value="Inquilino">Inquilino</option>
+                    <option value="Comite">Comite</option>
+                  </select>
+                  
+              </div>
+            </div>
+      
+            <div class="text-center">
+            <button type="submit" class="btn btn-primary px-4">Aceptar</button>
+              
+            </div>
+          </form>
+      
+          
+        </div>
+      </div>
+
+
+      </div>
+      </div>
+      
+<!-- Bootstrap JS (opcional si agregas interacciones con JS o modales) -->
+<script src="../../../../../bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
