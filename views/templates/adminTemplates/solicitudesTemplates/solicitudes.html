@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bienvenido</title>
+  <!-- Bootstrap 5 CDN -->
+  <link href="../../../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../styles/adminsStyles/solicitudesStyles/solicitudes.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container py-5">
+    <div class="bienvenida mx-auto text-center position-relative" style="max-width: 90%;">
+      <div class="titulo">Solicitudes Pendientes</div>
+    <div class="table-container">
+    
+            <table class="table table-bordered text-center align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>Fecha</th>
+                  <th>Solicitante</th>
+                  <th>Palapa</th>
+                  <th>Alberca</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Aquí puedes insertar dinámicamente los registros de tu base de datos -->
+                <tr>
+                  <td>20/10/10</td>
+                  <td>Ajalapapa</td>
+                  <td>Si</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>20/10/10</td>
+                  <td>Luz Elena</td>
+                  <td>Si</td>
+                  <td>No</td>
+                </tr>
+              </tbody>
+            </table>
+
+    </div><!--Fin del contenedor de la tabla y el buscador-->
+
+    
+  <div class="container my-4">
+    <div class="row justify-content-center g-3">
+      <div class="col-6 col-md-3">
+        <a href="../../userTemplates/solicitar_espacio.html" class="btn btn-light w-100 p-3 rounded-4 shadow-sm d-flex flex-column align-items-center custom-btn">
+          <img src="../../../assets/pics/icon_solicitar_espacio.png" alt="Añadir" class="mb-2" width="120" height="120">
+          <span>Solicitar Espacio</span>
+        </a>
+      </div>
+      <div class="col-6 col-md-3">
+        <button class="btn btn-light w-100 p-3 rounded-4 shadow-sm d-flex flex-column align-items-center custom-btn">
+          <img src="../../../assets/pics/icon_rechazado.png" alt="Eliminar" class="mb-2" width="120" height="120">
+          <span>Eliminar Solicitud</span>
+        </button>
+      </div>
+    </div>
+  </div><!-- Fin de la botonetra-->
+
+
+
+  </div><!--Contenedor blanquito aqui meter cosas-->
+</div> <!-- Contenedor grandote-->
+
+
+
+
+
+<!-- Bootstrap JS (opcional si agregas interacciones con JS o modales) -->
+<script src="../../../../../bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

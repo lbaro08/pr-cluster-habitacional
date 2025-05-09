@@ -24,24 +24,24 @@
         <div class="mb-3 d-flex align-items-center">
           <label for="nombre" class="form-label col-2">Nombre:</label>
           <input type="text" id="nombre" class="form-control me-2"value="Letre Letroso Lorena" readonly/>
-          <img src="../../assets/pics/icon_modificar.png" alt="editar" class="edit-icon btn-opcion" />
+          <img src="../../assets/pics/icon_modificar.png" alt="editar" class="edit-icon btn-opcion" onclick="modificarNombreModal()" />
         </div>
 
         <div class="mb-3 d-flex align-items-center">
           <label for="correo" class="form-label col-2">Correo:</label>
           <input type="email" id="correo" class="form-control me-2" value="ajalapapa@gmail.com" />
-          <img src="../../assets/pics/icon_modificar.png" alt="editar" class="edit-icon btn-opcion" />
+          <img src="../../assets/pics/icon_modificar.png" alt="editar" class="edit-icon btn-opcion" onclick="modificarCorreoModal()"/>
         </div>
 
         <div class="mb-4 d-flex align-items-center">
           <label for="telefono" class="form-label col-2">Teléfono:</label>
           <input type="tel" id="telefono" class="form-control me-2" value="2294175541" readonly/>
-          <img src="../../assets/pics/icon_modificar.png" alt="editar" class="edit-icon btn-opcion" />
+          <img src="../../assets/pics/icon_modificar.png" alt="editar" class="edit-icon btn-opcion" onclick="modificarTelefonoModal()" />
         </div>
 
         <div class="d-flex gap-2 justify-content-center">
           <button type="submit" class="btn btn-primary px-4">Aceptar</button>
-          <button type="button" class="btn btn-danger px-4">Cambiar Contraseña</button>
+          <button type="button" class="btn btn-danger px-4" onclick="modificarContrasenaModal()">Cambiar Contraseña</button>
         </div>
       </form>
 
@@ -50,6 +50,10 @@
     </div>
   </div>
 
-  <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../js/generalJS/mi_informacionJS/modificarNombreModal.js"></script>
+  <script src="../../js/generalJS/mi_informacionJS/modificarCorreoModal.js"></script>
+  <script src="../../js/generalJS/mi_informacionJS/modificarTelefonoModal.js"></script>
+  <script src="../../js/generalJS/mi_informacionJS/modificarContrasenaModal.js"></script>
 </body>
 </html>
