@@ -69,7 +69,7 @@ create table cxc(
 
 create table recibo(
 
-r_id_cxc char(6),
+r_id_cxc char(7),
 r_folio char(10), -- esto podria ser una imagen o no se como hacerlo
 r_monto float, -- esto lo pone el usuario
 r_fecha_peticion date,
@@ -102,3 +102,6 @@ constraint chk_re_espacio CHECK ( re_espacio>= 1 AND re_espacio <= 3)
 
 
 );
+
+describe cxc;
+describe recibo;

@@ -1,3 +1,4 @@
+use web;
 
 DELIMITER //
 -- -----------------------------------------------------------------------------
@@ -54,7 +55,7 @@ begin
     
 	ELSE
     
-    SELECT "DIA NO DISPONIBLE";
+    SELECT 'DIA NO DISPONIBLE';
     
     END IF;
 	
@@ -295,3 +296,143 @@ END //
 
 DELIMITER ;
 
+
+-- --------------------------------------------------------------------------------------
+-- ------------------- PROCEDURE PARA GENERAR LOS RECIBOS (USUARIOOOOOOOO)
+-- ----------------------------------------------------------------------------------------
+
+
+DELIMITER //
+
+create PROCEDURE realizar_pago(
+    in v_r_id_cxc char(7),
+    in v_r_folio char(10),
+    in v_r_monto float,
+    in v_r_rfc_usuario_cliente char(13)
+)
+BEGIN
+    declare id_cxc_existe int default 0;
+    declare recibo_existe int default 0;
+
+    select count(distinct cxc_id) INTO id_cxc_existe from cxc where cxc_id = v_r_id_cxc;
+    select count(*) INTO recibo_existe from recibo where r_id_cxc = v_r_id_cxc and (r_status is null or r_status = '1');
+
+    IF id_cxc_existe = 0 THEN
+         SIGNAL SQLSTATE '45000'
+         SET MESSAGE_TEXT = 'Error: no existe el cxc_id especificado';
+    END IF;
+
+    IF recibo_existe != 0 THEN
+         SIGNAL SQLSTATE '45000'
+         SET MESSAGE_TEXT = 'Error: La factura ya tiene un pago registrado';
+    END IF;
+
+    insert into recibo(r_id_cxc, r_folio, r_monto, r_fecha_peticion, r_rfc_usuario_cliente)
+        values (v_r_id_cxc,v_r_folio,v_r_monto,curdate(),v_r_rfc_usuario_cliente);
+
+END //
+
+DELIMITER ;
+
+
+-- --------------------------------------------------------------------------------------
+-- ------------------- PROCEDURE PARA GENERAR LOS RECIBOS (USUARIOOOOOOOO)
+-- ----------------------------------------------------------------------------------------
+
+describe recibo;
+DELIMITER //
+
+create PROCEDURE validar_recibo(
+    in v_r_id_cxc char(7),
+    in v_r_folio char(10),
+    in v_r_status char(1),
+    in v_r_rfc_usuario_verificador char(13)
+)
+BEGIN
+    declare v_recibo_existe int default 0;
+
+    select count(*) INTO v_recibo_existe from recibo where r_id_cxc = v_r_id_cxc and r_folio=v_r_folio;
+
+    IF v_recibo_existe = 0 THEN
+         SIGNAL SQLSTATE '45000'
+         SET MESSAGE_TEXT = 'Error: no existe el recibo especificado';
+    END IF;
+
+    IF v_r_status not in (0,1) THEN
+         SIGNAL SQLSTATE '45000'
+         SET MESSAGE_TEXT = 'Error: no existe el STATUS especificado';
+
+    end if;
+
+    update recibo
+    set     r_status = v_r_status,
+            r_fecha_verificacion = curdate(),
+            r_rfc_usuario_verificador = v_r_rfc_usuario_verificador
+    where r_id_cxc = v_r_id_cxc and r_folio=v_r_folio;
+
+
+END //
+
+DELIMITER ;
+
+-- --------------------------------------------------------------------------------------
+-- ------------------- vista para ver todos los movimientos cxc + recibos (validados/no validados/rechazados)
+-- ----------------------------------------------------------------------------------------
+
+CREATE or replace view movimiento_cxc_recibo AS
+SELECT
+    c.cxc_fecha_cobro AS v_fecha_pc,
+    c.cxc_id AS v_id_cxc,
+    c.cxc_calle_casa as v_calle_casa,
+    c.cxc_numero_casa as v_numero_casa,
+    'Cargo' AS v_tipo,
+    'N/A' AS v_estado,
+    SUM(c.cxc_costo) AS v_monto,
+    casa.c_rfc_inquilino AS v_inquilino_rfc,
+    casa.c_rfc_propietario  AS v_inquilino_propietario
+FROM cxc c
+inner join casa on c.cxc_calle_casa = casa.c_calle and c.cxc_numero_casa = casa.c_numero
+group by c.cxc_fecha_cobro, c.cxc_id, c.cxc_calle_casa, c.cxc_numero_casa, casa.c_rfc_inquilino
+
+UNION ALL
+
+SELECT
+    r.r_fecha_peticion AS v_fecha_pc,
+    r.r_id_cxc AS v_id_cxc,
+    cxc.cxc_calle_casa as v_calle_casa,
+    cxc.cxc_numero_casa as v_numero_casa,
+    'Abono' AS v_tipo,
+    r.r_status as v_estado,
+    -r.r_monto AS v_monto,
+    casa.c_rfc_inquilino  AS v_inquilino_rfc,
+    casa.c_rfc_propietario  AS v_inquilino_propietario
+FROM recibo r
+inner join cxc on r.r_id_cxc = cxc.cxc_id
+inner join casa on cxc.cxc_calle_casa = casa.c_calle and cxc.cxc_numero_casa = casa.c_numero
+group by r.r_fecha_peticion, r.r_id_cxc, cxc.cxc_calle_casa, cxc.cxc_numero_casa,r.r_status, r.r_monto, casa.c_rfc_inquilino;
+
+create or replace view estado_cuentas as
+select v_id_cxc,v_estado,v_calle_casa,v_numero_casa,v_tipo,v_monto,v_inquilino_rfc
+from movimiento_cxc_recibo where v_estado != '0' order by v_id_cxc asc,v_tipo desc;
+-- --------------------------------------------------------------------------------------
+-- ------------------- pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+-- ----------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------
+-- ------------------- pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+-- ----------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------
+-- ------------------- pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+-- ----------------------------------------------------------------------------------------
+
+
+
+select * from estado_cuentas where v_inquilino_rfc = 'LOPM900202XYZ';
+
+
+select sum(v_monto) as saldo_deudo from estado_cuentas where v_inquilino_rfc = 'LOPM900202XYZ';
+
+select * from movimiento_cxc_recibo
+where `Inquilino Actual`= 'MARP970202UYT' order by Factura,`Tipo Cargo`;
+select * from recibo;
+
+select * from casa where c_rfc_inquilino = 'MARP970202UYT';
