@@ -1,4 +1,6 @@
+drop database web;
 Create database web;
+
 use web;
 create table usuario(
 	u_rfc char(13) primary key,
@@ -48,8 +50,8 @@ create table cargo(
 
 create table cxc(
 
-	cxc_id char(6), -- Formato de año + numero de factura 2025001 2025002
-    cxc_id_cg char(3), -- Id del cargo que se cobra
+	cxc_id char(7), -- Formato de año + numero de factura 2025001 2025002
+    cxc_id_cg char(4), -- Id del cargo que se cobra
     cxc_calle_casa char(1) not null, -- Calle de la casa
     cxc_numero_casa char(2) not null, -- numero de la casa
     cxc_costo float not null, -- Costo en lo que se cobro
@@ -100,6 +102,7 @@ constraint chk_re_espacio CHECK ( re_espacio>= 1 AND re_espacio <= 3)
 
 
 );
+
 
 
 DELIMITER //
@@ -270,8 +273,134 @@ begin
           AND c_numero = v_c_numero;
 
 end//
+-- ---------------------------------------------------------------------------
+-- -----------Function AUXILIAR que te genera el ultimo id para cxc posible
+-- -----------ES NECESARIO DARLE UNA FECHA PARA VER EN QUE AÑO GENERARA LA FACTURA
+-- ---------------------------------------------------------------------------
+
+CREATE function aux_generar_cxc_id(
+	v_cxc_fecha_cobro date
+)
+RETURNS char(7)
+DETERMINISTIC
+BEGIN
+      -- Variables temporales para el ciclo
+	declare v_anio char(4);
+    declare v_conteo int;
+    declare v_cxc_id char(7);
+    
+    SET v_anio = YEAR(v_cxc_fecha_cobro);
+    
+    SELECT COUNT(distinct CXC_ID) + 1 INTO v_conteo FROM cxc WHERE year(cxc_fecha_cobro) = v_anio;
+	SET v_cxc_id = CONCAT(v_anio, LPAD(v_conteo, 3, '0'));
+      
+      return v_cxc_id;
+END //
 
 DELIMITER ;
+-- ---------------------------------------------------------------------------
+-- -----------PROCEDURE AUXILIAR QUE GENERA EL COBRO DE TODOS LOS SERVICIOS A UNA CASA
+-- -----------ES NECESARIO DARLE LA CASA, Y LA FECHA DE COBRO Y LIMITE
+-- ---------------------------------------------------------------------------
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE aux_generar_cargos(
+    in v_c_calle char(1),
+    in v_c_numero char(2),
+    in v_cg_fecha_cobro date,
+    in v_cg_fecha_limite date
+    
+)
+BEGIN
+	-- variable fija del id factura
+    DECLARE v_cxc_id CHAR(7);
+    -- temporales que ciclan de los cargos
+    DECLARE t_cg_id CHAR(4);
+    DECLARE t_cg_costo float;
+	-- variavble de fin de ciclo
+    DECLARE f_ciclo INT DEFAULT FALSE;
+
+    -- Cursor para recorrer la tabla casa
+    DECLARE cur_cargos CURSOR FOR SELECT cg_id, cg_costo FROM cargo;
+    -- Manejador de fin de datos del cursor
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET f_ciclo = TRUE;
+       
+	-- SE GENERA LA NUEVA ID
+    SET v_cxc_id = aux_generar_cxc_id(v_cg_fecha_cobro);
+       
+    -- Abrir cursor
+    OPEN cur_cargos;
+
+    loop_cargos: LOOP
+        -- Leer una fila del cursor
+        FETCH cur_cargos INTO t_cg_id,t_cg_costo;
+		-- Si no hay más filas, salir del bucle
+        IF f_ciclo THEN
+            LEAVE loop_cargos;
+        END IF;
+        
+        insert into cxc(cxc_id,cxc_id_cg,cxc_calle_casa,cxc_numero_casa,cxc_costo,cxc_fecha_cobro,cxc_fecha_limite)
+        values (v_cxc_id,t_cg_id,v_c_calle,v_c_numero,t_cg_costo,v_cg_fecha_cobro,v_cg_fecha_limite);
+		
+        
+
+    END LOOP;
+
+    -- Cerrar cursor
+    CLOSE cur_cargos;
+END //
+
+DELIMITER ;
+
+-- --------------------------------------------------------------------------------------
+-- ------------------- Procedure para generar el cobro de todos lso servicios-----------
+-- a todas las casa
+-- ----------------------------------------------------------------------------------------
+DELIMITER //
+
+create PROCEDURE cobrar_servicios(
+    in v_cg_fecha_cobro date,
+    in v_cg_fecha_limite date
+    
+)
+BEGIN
+    -- temporales que ciclan de los casa
+    DECLARE t_c_calle CHAR(1);
+    DECLARE t_c_numero char(2);
+	-- variavble de fin de ciclo
+    DECLARE f_ciclo INT DEFAULT FALSE;
+
+    -- Cursor para recorrer la tabla casa
+    DECLARE cur_casa CURSOR FOR SELECT c_calle, c_numero FROM casa;
+    -- Manejador de fin de datos del cursor
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET f_ciclo = TRUE;
+       
+    -- Abrir cursor
+    if v_cg_fecha_cobro<= v_cg_fecha_limite then
+    OPEN cur_casa;
+    
+    loop_casas: LOOP
+        -- Leer una fila del cursor
+        FETCH cur_casa INTO t_c_calle,t_c_numero;
+		-- Si no hay más filas, salir del bucle
+        IF f_ciclo THEN
+            LEAVE loop_casas;
+        END IF;
+        call aux_generar_cargos(t_c_calle,t_c_numero,v_cg_fecha_cobro,v_cg_fecha_limite);
+        
+
+    END LOOP;
+
+    -- Cerrar cursor
+    CLOSE cur_casa;
+    END IF;
+END //
+
+DELIMITER ;
+
 INSERT INTO casa (c_calle, c_numero) VALUES
 ('A', '01'),
 ('A', '02'),
@@ -370,5 +499,3 @@ INSERT INTO cargo (cg_id, cg_nombre, cg_descripcion, cg_costo) VALUES
 ('PA08', 'Parqueo', 'Renta de espacio para auto', 300.00),
 ('RE09', 'Reparación', 'Fondo para reparaciones', 150.00),
 ('AL10', 'Alumbrado', 'Alumbrado de áreas comunes', 120.00);
-
-

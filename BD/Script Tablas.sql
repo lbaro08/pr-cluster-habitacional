@@ -50,8 +50,8 @@ create table cargo(
 
 create table cxc(
 
-	cxc_id char(6), -- Formato de año + numero de factura 2025001 2025002
-    cxc_id_cg char(3), -- Id del cargo que se cobra
+	cxc_id char(7), -- Formato de año + numero de factura 2025001 2025002
+    cxc_id_cg char(4), -- Id del cargo que se cobra
     cxc_calle_casa char(1) not null, -- Calle de la casa
     cxc_numero_casa char(2) not null, -- numero de la casa
     cxc_costo float not null, -- Costo en lo que se cobro
