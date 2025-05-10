@@ -1,0 +1,20 @@
+meta {
+  name: create_user
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost/xampp/cluster-habitacional/api/usuario.php
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "u_rfc":"XEXX010101000",
+    "u_nombre":"Juan Perez",
+    "u_telefono":"5512345678",
+    "u_tipo":"1"
+  }
+}

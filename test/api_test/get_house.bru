@@ -1,0 +1,16 @@
+meta {
+  name: get_house
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost/xampp/cluster-habitacional/api/casa.php?c_calle=A&c_numero=11
+  body: none
+  auth: inherit
+}
+
+params:query {
+  c_calle: A
+  c_numero: 11
+}

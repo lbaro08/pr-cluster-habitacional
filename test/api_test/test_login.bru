@@ -1,0 +1,18 @@
+meta {
+  name: test_login
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost/xampp/cluster-habitacional/api/login.php
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "u_rfc": "GOMC810303JKL", 
+    "u_password": "passwords"
+  }
+}

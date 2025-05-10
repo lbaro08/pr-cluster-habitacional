@@ -1,0 +1,15 @@
+meta {
+  name: read_user
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost/xampp/cluster-habitacional/api/usuario.php?u_rfc=XEXX010101000
+  body: none
+  auth: inherit
+}
+
+params:query {
+  u_rfc: XEXX010101000
+}
