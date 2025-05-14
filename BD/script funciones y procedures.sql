@@ -375,6 +375,69 @@ END //
 
 DELIMITER ;
 
+
+-- --------------------------------------------------------------
+-- procedure para modficar datos de usario
+-- ---------------------------------------------------------------
+delimiter //
+
+    create procedure modificar_usuario_nombre(
+    in v_rfc_u char(13),
+    in v_nombre_u char(100)
+    )
+    begin
+
+    UPDATE usuario SET u_nombre = v_nombre_u
+    where u_rfc = v_rfc_u;
+
+    end//
+
+delimiter ;
+
+delimiter //
+
+    create procedure modificar_usuario_telefono(
+    in v_rfc_u char(13),
+    in v_telefono_u char(10)
+    )
+    begin
+
+    UPDATE usuario SET u_telefono = v_telefono_u
+    where u_rfc = v_rfc_u ;
+
+    end//
+
+delimiter ;
+
+delimiter //
+
+    create procedure modificar_usuario_password(
+    in v_rfc_u char(13),
+    in v_old_password varchar(255),
+    in v_new_password varchar(255)
+    )
+    begin
+
+    declare t_existe integer;
+
+    select count(*) into t_existe
+    from usuario where u_rfc = v_rfc_u and u_password = v_old_password;
+
+    if t_existe = 0 then
+         SIGNAL SQLSTATE '45000'
+         SET MESSAGE_TEXT = 'Error: Contraseña Erronea';
+    end if ;
+
+    UPDATE usuario SET u_password = v_new_password
+    where u_rfc = v_rfc_u and u_password=v_old_password;
+
+    end//
+
+delimiter ;
+
+
+
+
 -- --------------------------------------------------------------------------------------
 -- ------------------- vista para ver todos los movimientos cxc + recibos (validados/no validados/rechazados)
 -- ----------------------------------------------------------------------------------------
@@ -424,15 +487,3 @@ from movimiento_cxc_recibo where v_estado != '0' order by v_id_cxc asc,v_tipo de
 -- ------------------- pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 -- ----------------------------------------------------------------------------------------
 
-
-
-select * from estado_cuentas where v_inquilino_rfc = 'LOPM900202XYZ';
-
-
-select sum(v_monto) as saldo_deudo from estado_cuentas where v_inquilino_rfc = 'LOPM900202XYZ';
-
-select * from movimiento_cxc_recibo
-where `Inquilino Actual`= 'MARP970202UYT' order by Factura,`Tipo Cargo`;
-select * from recibo;
-
-select * from casa where c_rfc_inquilino = 'MARP970202UYT';

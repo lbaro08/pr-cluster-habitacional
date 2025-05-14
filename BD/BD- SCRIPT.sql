@@ -104,6 +104,28 @@ constraint chk_re_espacio CHECK ( re_espacio>= 1 AND re_espacio <= 3)
 );
 
 
+-- ----------------------
+create table publicacion(
+f_id integer auto_increment,
+f_rfc_usuario char(13),
+f_titulo varchar(255) not null,
+f_contenido text not null,
+f_fecha datetime default current_timestamp,
+
+primary key (f_id)
+);
+
+create table comentario(
+c_id integer auto_increment,
+c_id_f integer,
+c_rfc_usuario char(13),
+c_contenido text not null,
+c_fecha datetime default current_timestamp,
+
+primary key (c_id,c_id_f),
+constraint r_publicacion_comentario_id foreign key (c_id_f) references publicacion(f_id) on delete cascade
+);
+
 
 DELIMITER //
 -- -----------------------------------------------------------------------------
@@ -482,6 +504,68 @@ END //
 
 DELIMITER ;
 
+-- -
+-- --------------------------------------------------------------
+-- procedure para modficar datos de usario
+-- ---------------------------------------------------------------
+delimiter //
+
+    create procedure modificar_usuario_nombre(
+    in v_rfc_u char(13),
+    in v_nombre_u char(100)
+    )
+    begin
+
+    UPDATE usuario SET u_nombre = v_nombre_u
+    where u_rfc = v_rfc_u;
+
+    end//
+
+delimiter ;
+
+delimiter //
+
+    create procedure modificar_usuario_telefono(
+    in v_rfc_u char(13),
+    in v_telefono_u char(10)
+    )
+    begin
+
+    UPDATE usuario SET u_telefono = v_telefono_u
+    where u_rfc = v_rfc_u ;
+
+    end//
+
+delimiter ;
+
+delimiter //
+
+    create procedure modificar_usuario_password(
+    in v_rfc_u char(13),
+    in v_old_password varchar(255),
+    in v_new_password varchar(255)
+    )
+    begin
+
+    declare t_existe integer;
+
+    select count(*) into t_existe
+    from usuario where u_rfc = v_rfc_u and u_password = v_old_password;
+
+    if t_existe = 0 then
+         SIGNAL SQLSTATE '45000'
+         SET MESSAGE_TEXT = 'Error: Contraseña Erronea';
+    end if ;
+
+    UPDATE usuario SET u_password = v_new_password
+    where u_rfc = v_rfc_u and u_password=v_old_password;
+
+    end//
+
+delimiter ;
+
+
+
 
 -- --------------------------------------------------------------------------------------
 -- ------------------- vista para ver todos los movimientos cxc + recibos (validados/no validados/rechazados)
@@ -524,7 +608,7 @@ group by r.r_fecha_peticion, r.r_id_cxc, cxc.cxc_calle_casa, cxc.cxc_numero_casa
 
 create or replace view estado_cuentas as
 select v_id_cxc,v_estado,v_calle_casa,v_numero_casa,v_tipo,v_monto,v_inquilino_rfc
-from movimiento_cxc_recibo where v_estado != '0' order by v_id_cxc asc,v_tipo desc;
+from movimiento_cxc_recibo where v_estado != '0' order by v_id_cxc ,v_tipo desc;
 -- ---------------------------------------------------------------------
 -- --------------------------------------------------------------------
 -- ---------------------------------------------------------------------
@@ -789,3 +873,5 @@ CALL validar_recibo('2025050','1234567899','1','RUIF880707BNM');
 
 
 select * from recibo;
+
+select * from estado_cuentas;
