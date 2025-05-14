@@ -11,54 +11,41 @@
 
 </head>
 <body>
+  <div class="container py-5">
+    
+    <!-- Título dentro del contenedor -->
+    <div class="bienvenida mx-auto text-center position-relative" style="max-width: 90%;">
+      <div class="titulo">Usuarios Registrados</div>
+          <div class="container mt-1 table-container">
 
-    <div class="container table-container">
-
-
-        <div class="container mt-4 mb-4">
-            <div class="input-group rounded shadow-sm" style="max-width: 500px; margin: auto;">
-              <input type="text" class="form-control rounded-start-pill border-end-0" placeholder="Buscar..." aria-label="Buscar" style="border-color: black;">
-              <button class="btn btn-outline-secondary rounded-end-pill border-start-0" type="button">
-                <img  src="../../../../assets/pics/icon_verificar.png" class="btn-search" alt="usuarios">
-              </button>
-            </div>
-          </div>
-
- 
-        <table class="table table-bordered text-center align-middle">
-          <thead class="table-light">
-            <tr>
-              <th>RFC</th>
-              <th>Nombre</th>
-              <th>Correo</th>
-              <th>Teléfono</th>
-              <th>Tipo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Aquí puedes insertar dinámicamente los registros de tu base de datos -->
-            <tr>
-              <td>xxxxxxx</td>
-              <td>Jalapapa Ferral Ramirez</td>
-              <td>ajalapapa22@gmail.com</td>
-              <td>22965818</td>
-              <td>Inquilino</td>
-            </tr>
-            <tr>
-              <td>xxxxxxx</td>
-              <td>Jalapapa Ferral Ramirez</td>
-              <td>ajalapapa22@gmail.com</td>
-              <td>22965818</td>
-              <td>Comite</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="container mb-4">
+        <div class="input-group rounded shadow-sm" style="max-width: 500px; margin: auto;">
+          <input type="text" id="inputBuscarUsuarios" class="form-control rounded-start-pill border-end-0" placeholder="Buscar..." aria-label="Buscar" style="border-color: black;">
+          <button class="btn btn-outline-secondary rounded-end-pill border-start-0" type="button">
+            <img src="../../../../assets/pics/icon_verificar.png" class="btn-search" alt="usuarios">
+          </button>
+        </div>
       </div>
-  
-  
-</div>
 
-<!-- Bootstrap JS (opcional si agregas interacciones con JS o modales) -->
-<script src="../../../../../bootstrap/js/bootstrap.bundle.min.js"></script>
+      <table class="table table-bordered text-center align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>RFC</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody id="contenedorVerUsuarios"></tbody>
+      </table>
+
+    </div> <!-- Fin tabla -->
+  </div> <!-- Fin container grande -->
+    </div>
+
+
+
+  <script src="../../../../../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../../../js/adminJS/residentesJS/usuariosJS/contenedorVerUsuarios.js"></script>
 </body>
 </html>
