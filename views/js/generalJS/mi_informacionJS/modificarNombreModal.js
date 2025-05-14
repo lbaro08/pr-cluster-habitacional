@@ -51,20 +51,33 @@ function modificarNombreModal() {
 
     const inputNuevoNombre = document.getElementById("inputNuevoNombre").value;
 
-    genModificarNombre('rfc_usuario', inputNuevoNombre);
+    genModificarNombre( inputNuevoNombre);
     modal.hide();
   });
 
 } // cierre de la función
 
 
-function genModificarNombre(usuario_rfc, inputNuevoNombre) {
+function genModificarNombre(inputNuevoNombre) {
+
   const modificarNombreJSON = [{
-    u_rfc: usuario_rfc,
-    u_nombre: inputNuevoNombre
+    u_rfc:'DIAM930808VCX',
+    u_nombre: inputNuevoNombre,
+    u_telefono:'2296520020',
+    u_tipo:'1',
+    u_password:'2296520020'
   }];
 
   console.log("Datos a enviar:", modificarNombreJSON);
+  const URL = "../../../api/";
+
+  fetch(URL+"usuario.php", {
+  method: 'PUT',
+  body: JSON.stringify(modificarNombreJSON)
+})
+  .then(res => console.log(res))
+  .catch(err => console.error(err))
+  ;
 
 
 }
