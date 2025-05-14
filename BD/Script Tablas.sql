@@ -103,5 +103,24 @@ constraint chk_re_espacio CHECK ( re_espacio>= 1 AND re_espacio <= 3)
 
 );
 
-describe cxc;
-describe recibo;
+create table publicacion(
+f_id integer auto_increment,
+f_rfc_usuario char(13),
+f_titulo varchar(255) not null,
+f_contenido text not null,
+f_fecha datetime default current_timestamp,
+
+primary key (f_id)
+);
+
+create table comentario(
+c_id integer auto_increment,
+c_id_f integer,
+c_rfc_usuario char(13),
+c_contenido text not null,
+c_fecha datetime default current_timestamp,
+
+primary key (c_id,c_id_f),
+constraint r_publicacion_comentario_id foreign key (c_id_f) references publicacion(f_id) on delete cascade
+);
+
