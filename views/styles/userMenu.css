@@ -36,3 +36,8 @@ body {
   height: 350px;
   object-fit: contain;
 }
+
+.img-foro {
+  height: 200px;
+  width: 200px;
+}
