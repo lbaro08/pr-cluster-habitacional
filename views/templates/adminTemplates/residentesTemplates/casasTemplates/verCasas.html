@@ -11,51 +11,47 @@
 
 </head>
 <body>
-
-    <div class="container table-container">
-
-
-        <div class="container mt-4 mb-4">
-            <div class="input-group rounded shadow-sm" style="max-width: 500px; margin: auto;">
-              <input type="text" class="form-control rounded-start-pill border-end-0" placeholder="Buscar..." aria-label="Buscar" style="border-color: black;">
-              <button class="btn btn-outline-secondary rounded-end-pill border-start-0" type="button">
-                <img  src="../../../../assets/pics/icon_verificar.png" class="btn-search" alt="usuarios">
-              </button>
-            </div>
+  <div class="container py-5">
+    
+    <!-- Contenedor del título principal -->
+    <div class="bienvenida mx-auto text-center position-relative" style="max-width: 90%; max-height: 650px;">
+      <div class="titulo">Elija una Opción</div>
+      
+      <!-- Contenedor blanco de tabla y buscador -->
+      <div class="container table-container">
+        
+        <!-- Buscador -->
+        <div class="container mb-4">
+          <div class="input-group rounded shadow-sm" style="max-width: 500px; margin: auto;">
+            <input type="text" class="form-control rounded-start-pill border-end-0" placeholder="Buscar..." aria-label="Buscar" style="border-color: black;">
+            <button class="btn btn-outline-secondary rounded-end-pill border-start-0" type="button">
+              <img src="../../../../assets/pics/icon_verificar.png" class="btn-search" alt="usuarios">
+            </button>
           </div>
+        </div>
 
- 
+        <!-- Tabla -->
         <table class="table table-bordered text-center align-middle">
           <thead class="table-light">
             <tr>
               <th>Calle</th>
-              <th>Numero</th>
+              <th>Número</th>
               <th>Dueño</th>
               <th>Inquilino</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Aquí puedes insertar dinámicamente los registros de tu base de datos -->
-            <tr>
-              <td>A/td>
-              <td>1</td>
-              <td>Luis Feliciano</td>
-              <td>Montserrat Palma</td>
-            </tr>
-            <tr>
-              <td>b</td>
-              <td>2</td>
-              <td>Christopher Ascencio</td>
-              <td>Mar Antoine</td>
-            </tr>
+          <tbody id="contenedorVerCasas">
+            <!-- Aquí se insertan las filas -->
           </tbody>
         </table>
-      </div>
-  
-  
-</div>
 
-<!-- Bootstrap JS (opcional si agregas interacciones con JS o modales) -->
-<script src="../../../../../bootstrap/js/bootstrap.bundle.min.js"></script>
+      </div> <!-- Fin .table-container -->
+    </div> <!-- Fin .bienvenida -->
+  </div> <!-- Fin .container -->
+  
+  <!-- Scripts -->
+  <script src="../../../../../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../../../js/adminJS/residentesJS/casas/contenedorVerCasas.js"></script>
 </body>
+
 </html>
