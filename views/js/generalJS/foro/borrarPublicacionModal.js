@@ -28,24 +28,33 @@ function borrarPublicacionModal(publicacion_id) {
   
     // Insertar el modal en el body
     document.body.insertAdjacentHTML('beforeend', borrarPublicacionModalHTML);
-  
     // Mostrar el modal
     const modal = new bootstrap.Modal(document.getElementById('borrarPublicacionModal'));
     modal.show();
 
 
-      // Funcion del boton para conseguir los datos
+  // ////////////////////////////////////////////////////////////
+  //                    evente listener
+  // ////////////////////////////////////////////////////////////
+ 
+  // Funcion del boton para conseguir los datos
     const btnEliminarPublicacion = document.getElementById("btnEliminarPublicacion");
 
     btnEliminarPublicacion.addEventListener("click", function(event) {
         genEliminarPublicacion(publicacion_id);
+        modal.hide();
   });// cierre del addevent al btn  
-  }
+  
+
+
+  
+}// fin del modal
 
 
   function genEliminarPublicacion(publicacion_id){
     // hay que hacer la logica de que el usuario que la elimno sea el dueño
-    alert("Se elimino la publicacion" + publicacion_id);
+
+    console.log("Datos para enviar",publicacion_id);
 
 
 
