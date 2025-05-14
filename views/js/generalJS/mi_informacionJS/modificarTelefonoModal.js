@@ -16,7 +16,7 @@ function modificarTelefonoModal() {
 
       <div class="modal-body text-center" style="background-color: #dff0ff; border-radius: 0 0 1rem 1rem;">
         <p class="mb-4 fs-5 fw-semibold">Ingrese el nuevo teléfono:</p>
-
+<form id="formModificarTelefono">
         <div class="row mb-3">
           <div class="col-12">
             <input 
@@ -30,9 +30,9 @@ function modificarTelefonoModal() {
           </div>
         </div>
 
-        <button type="button" class="btn btn-primary px-4" onclick="modificarTelefono()">Modificar</button>
+        <button id="btnModificarTelefono" type="button" class="btn btn-primary px-4" >Modificar</button>
       </div>
-
+</form>
     </div>
   </div>
 </div>
@@ -48,7 +48,46 @@ function modificarTelefonoModal() {
     // Mostrar el modal
     const modal = new bootstrap.Modal(document.getElementById('modificarTelefonoModal'));
     modal.show();
-  }
+
+  // -------------------------
+  // Evento del formulario
+  // -------------------------
+
+    const btnModificarTelefono = document.getElementById("btnModificarTelefono");
+    btnModificarTelefono.addEventListener("click",function(event){
+      event.preventDefault();
+
+      const inputNuevoTelefono = document.getElementById("inputNuevoTelefono").value;
+
+      const regex = /^[0-9]{10}$/;
+
+      if (!regex.test(inputNuevoTelefono)) {
+     alert("El teléfono debe contener exactamente 10 dígitos numéricos");
+    document.getElementById("inputNuevoTelefono").focus();
+    }
+     else{
+      genModificarTelefono(inputNuevoTelefono);
+      modal.hide();
+     }
+
+
+    });
+
+
+  }// fin del modal
+
+
+function genModificarTelefono(inputNuevoTelefono){
+
+      const modificar_usuario_telefonoJSON = [{
+        u_rfc:'rfc',
+        u_telefono:inputNuevoTelefono
+      }];
+
+      console.log("Datos a enviar:",modificar_usuario_telefonoJSON);
+
+
+    }
 
 
  

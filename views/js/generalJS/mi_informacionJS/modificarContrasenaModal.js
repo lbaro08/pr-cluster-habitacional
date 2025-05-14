@@ -17,6 +17,7 @@ function modificarContrasenaModal() {
       <div class="modal-body text-center" style="background-color: #dff0ff; border-radius: 0 0 1rem 1rem;">
         <p class="mb-4 fs-5 fw-semibold">Ingrese los siguientes datos:</p>
 
+      <form id=formModificarContrasena>
         <div class="row mb-3">
           <div class="col-12">
             <input 
@@ -50,10 +51,8 @@ function modificarContrasenaModal() {
           </div>
         </div>
 
-        <button 
-          type="button" 
-          class="btn btn-primary px-4" 
-          onclick="validarCambioContrasena()">Confirmar</button>
+        <button type="submit"  class="btn btn-primary px-4">Confirmar</button>
+      </form>    
       </div>
 
     </div>
@@ -69,7 +68,53 @@ function modificarContrasenaModal() {
     // Mostrar el modal
     const modal = new bootstrap.Modal(document.getElementById('modificarContrasenaModal'));
     modal.show();
+
+// ----------------------------------------------------------------------------
+//     EVENT LISTENNER PARA BOTN DE ACEPTAR CAMBIO
+// ----------------------------------------------------------------------------  
+
+
+  // Funcion del boton para conseguir los datos
+  const formModificarContrasena = document.getElementById("formModificarContrasena");
+  formModificarContrasena.addEventListener("submit", function(event) {
+    event.preventDefault();
+    const inputAntiguaContrasena = formModificarContrasena.inputAntiguaContrasena.value;
+    const inputNuevaContrasena = formModificarContrasena.inputNuevaContrasena.value;
+    const inputConfirmarContrasena = formModificarContrasena.inputConfirmarContrasena.value;
+
+    if(inputNuevaContrasena==inputConfirmarContrasena){
+    genModificarContrasena('rfc_usuario',inputAntiguaContrasena,inputNuevaContrasena,inputConfirmarContrasena);
+    modal.hide();}
+    else{
+
+    formModificarContrasena.inputNuevaContrasena.value = '';  
+    formModificarContrasena.inputConfirmarContrasena.value = '';
+      alert("Las contraseñas no coinciden");
+
+    }
+
+
+  });// cierre del addevent al btn
+
+
   }
 
 
+
+  function genModificarContrasena(u_rfc,u_old_password,u_new_password,u_repeat_password){
+
+    const modificar_usuario_password =[{
+      u_rfc: u_rfc,
+      u_old_password:u_old_password,
+      u_new_password:u_new_password,
+      u_repeat_password:u_repeat_password
+    }
+  ];
+
+    console.log("Datos a enviar",modificar_usuario_password);
+
+
+
+
+  }
  
