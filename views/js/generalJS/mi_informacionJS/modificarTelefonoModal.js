@@ -1,10 +1,10 @@
 function modificarTelefonoModal() {
 
-    const anterior = document.getElementById('modificarTelefonoModal');
-    if (anterior) anterior.remove();
+  const anterior = document.getElementById('modificarTelefonoModal');
+  if (anterior) anterior.remove();
 
-    // Crear contenido HTML del modal
-    const modificarTelefonoModalHTML = `
+  // Crear contenido HTML del modal
+  const modificarTelefonoModalHTML = `
 <div class="modal fade" id="modificarTelefonoModal" tabindex="-1" aria-labelledby="tituloModificarTelefono" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content rounded-4 border-0 shadow">
@@ -41,53 +41,70 @@ function modificarTelefonoModal() {
 
 
     `;
-  
-    // Insertar el modal en el body
-    document.body.insertAdjacentHTML('beforeend', modificarTelefonoModalHTML);
-  
-    // Mostrar el modal
-    const modal = new bootstrap.Modal(document.getElementById('modificarTelefonoModal'));
-    modal.show();
+
+  // Insertar el modal en el body
+  document.body.insertAdjacentHTML('beforeend', modificarTelefonoModalHTML);
+
+  // Mostrar el modal
+  const modal = new bootstrap.Modal(document.getElementById('modificarTelefonoModal'));
+  modal.show();
 
   // -------------------------
   // Evento del formulario
   // -------------------------
 
-    const btnModificarTelefono = document.getElementById("btnModificarTelefono");
-    btnModificarTelefono.addEventListener("click",function(event){
-      event.preventDefault();
+  const btnModificarTelefono = document.getElementById("btnModificarTelefono");
+  btnModificarTelefono.addEventListener("click", function (event) {
+    event.preventDefault();
 
-      const inputNuevoTelefono = document.getElementById("inputNuevoTelefono").value;
+    const inputNuevoTelefono = document.getElementById("inputNuevoTelefono").value;
 
-      const regex = /^[0-9]{10}$/;
+    const regex = /^[0-9]{10}$/;
 
-      if (!regex.test(inputNuevoTelefono)) {
-     alert("El teléfono debe contener exactamente 10 dígitos numéricos");
-    document.getElementById("inputNuevoTelefono").focus();
+    if (!regex.test(inputNuevoTelefono)) {
+      alert("El teléfono debe contener exactamente 10 dígitos numéricos");
+      document.getElementById("inputNuevoTelefono").focus();
     }
-     else{
+    else {
       genModificarTelefono(inputNuevoTelefono);
       modal.hide();
-     }
-
-
-    });
-
-
-  }// fin del modal
-
-
-function genModificarTelefono(inputNuevoTelefono){
-
-      const modificar_usuario_telefonoJSON = [{
-        u_rfc:'rfc',
-        u_telefono:inputNuevoTelefono
-      }];
-
-      console.log("Datos a enviar:",modificar_usuario_telefonoJSON);
-
-
     }
 
 
- 
+  });
+
+
+}// fin del modal
+
+
+function genModificarTelefono(inputNuevoTelefono) {
+
+  const modificar_usuario_telefonoJSON = {
+    u_rfc: 'rfc',
+    u_telefono: inputNuevoTelefono
+  };
+
+  console.log("Datos a enviar:", modificar_usuario_telefonoJSON);
+
+  fetch('/api/usuario/update', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(modificar_usuario_telefonoJSON)
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Respuesta del servidor:", data);
+      if (data.status) {
+        console.log("Telefono modificado exitosamente");
+        console.log("Nuevo telefono:", data.data.u_telefono);
+      } else {
+        console.error("Error al modificar el nombre:", data.error);
+      }
+    })
+    .catch(err => console.error(err));
+
+}
+
+

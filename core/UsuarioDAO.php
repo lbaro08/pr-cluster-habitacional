@@ -9,8 +9,15 @@ class UsuarioDAO {
     }
 
     public function create($usuario) {
-        $stmt = $this->pdo->prepare("INSERT INTO usuario (u_rfc, u_nombre, u_telefono, u_tipo, u_password) VALUES (?, ?, ?, ?, ?)");
-        return $stmt->execute([$usuario->u_rfc, $usuario->u_nombre, $usuario->u_telefono, $usuario->u_tipo, $usuario->u_password]);
+        $stmt = ($usuario->u_tipo == '1') ? 
+            $this->pdo->prepare("CALL registrar_superusuario(?, ?, ?, ?)") : 
+            $this->pdo->prepare("CALL registrar_usuario(?, ?, ?, ?)");
+        return $stmt->execute([
+            $usuario->u_rfc, 
+            $usuario->u_nombre, 
+            $usuario->u_telefono, 
+            $usuario->u_password
+        ]);
     }
 
     public function read($rfc) {
@@ -20,8 +27,30 @@ class UsuarioDAO {
     }
 
     public function update($usuario) {
-        $stmt = $this->pdo->prepare("UPDATE usuario SET u_nombre = ?, u_telefono = ?, u_tipo = ?, u_password = ? WHERE u_rfc = ?");
-        return $stmt->execute([$usuario->u_nombre, $usuario->u_telefono, $usuario->u_tipo, $usuario->u_password, $usuario->u_rfc]);
+        try {
+            if (!empty($usuario->u_nombre)) {
+                $stmtNombre = $this->pdo->prepare("CALL modificar_usuario_nombre(?, ?)");
+                $stmtNombre->execute([$usuario->u_rfc, $usuario->u_nombre]);
+            }
+
+            if (!empty($usuario->u_telefono)) {
+                $stmtTelefono = $this->pdo->prepare("CALL modificar_usuario_telefono(?, ?)");
+                $stmtTelefono->execute([$usuario->u_rfc, $usuario->u_telefono]);
+            }
+
+            if (!empty($usuario->u_password)) {
+                $stmtPassword = $this->pdo->prepare("CALL modificar_usuario_password(?, ?, ?)");
+                $stmtPassword->execute([
+                    $usuario->u_rfc,
+                    $usuario->u_old_password, 
+                    $usuario->u_password
+                ]);
+            }
+
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 
     public function delete($rfc) {
