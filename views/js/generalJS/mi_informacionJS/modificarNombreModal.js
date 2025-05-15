@@ -1,3 +1,5 @@
+const URL = "../../../api/usuario.php";
+
 function modificarNombreModal() {
 
   const anterior = document.getElementById('modificarNombreModal');
@@ -46,12 +48,12 @@ function modificarNombreModal() {
   // Evento del formulario
   // -------------------------
   const formModificarNombre = document.getElementById("formModificarNombre");
-  formModificarNombre.addEventListener("submit", function(event) {
+  formModificarNombre.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const inputNuevoNombre = document.getElementById("inputNuevoNombre").value;
 
-    genModificarNombre( inputNuevoNombre);
+    genModificarNombre(inputNuevoNombre);
     modal.hide();
   });
 
@@ -60,25 +62,29 @@ function modificarNombreModal() {
 
 function genModificarNombre(inputNuevoNombre) {
 
-  const modificarNombreJSON = [{
-    u_rfc:'DIAM930808VCX',
+  const modificarNombreJSON = {
+    u_rfc: 'DIAM930808VCX',
     u_nombre: inputNuevoNombre,
-    u_telefono:'2296520020',
-    u_tipo:'1',
-    u_password:'2296520020'
-  }];
+  };
 
   console.log("Datos a enviar:", modificarNombreJSON);
-  const URL = "../../../api/usuario.php";
 
   fetch(URL, {
-  method: 'PUT',
-  body: JSON.stringify(modificarNombreJSON)
-})
-  .then(res => console.log(res))
-  .then(data => console.log(data))
-  .catch(err => console.error(err))
-  ;
-
-
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(modificarNombreJSON)
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Respuesta del servidor:", data);
+      if (data.status) {
+        console.log("Nombre modificado exitosamente");
+        console.log("Nuevo nombre:", data.data.u_nombre);
+      } else {
+        console.error("Error al modificar el nombre:", data.error);
+      }
+    })
+    .catch(err => console.error(err))
 }
