@@ -31,7 +31,6 @@ try {
         exit;
     }
 
-    // Verificar si es propietario o inquilino de alguna casa
     $stmtCasa = $pdo->prepare("
         SELECT 
             CASE 
