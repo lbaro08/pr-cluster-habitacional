@@ -16,7 +16,7 @@ function eliminarSolicitudModal() {
 
       <div class="modal-body text-center" style="background-color: #f8d7da; border-radius: 0 0 1rem 1rem;">
         <p class="mb-4 fs-5 fw-semibold">Ingrese la fecha de la solicitud que desea eliminar:</p>
-
+    
         <div class="row mb-3">
           <div class="col-12">
             <input 
@@ -27,7 +27,7 @@ function eliminarSolicitudModal() {
           </div>
         </div>
 
-        <button type="button" class="btn btn-danger px-4" onclick="eliminarSolicitud()">Eliminar</button>
+        <button id="btnEliminarSolicitud" type="button" class="btn btn-danger px-4">Eliminar</button>
       </div>
 
     </div>
@@ -42,7 +42,30 @@ function eliminarSolicitudModal() {
     // Mostrar el modal
     const modal = new bootstrap.Modal(document.getElementById('eliminarSolicitudModal'));
     modal.show();
+
+  // //////////////////////////////////////////////////////
+  //                event listeenr
+  // ////////////////////////////////////////////////////
+
+  const btnEliminarSolicitud = document.getElementById("btnEliminarSolicitud");
+  btnEliminarSolicitud.addEventListener('click',function(event){
+
+    inputFechaSolicitud = document.getElementById('inputFechaSolicitud').value;
+    genEliminarFechaSolicitud(inputFechaSolicitud);
+    modal.hide();
+
+  });// fin del btn event
+
+
   }
 
+
+  function genEliminarFechaSolicitud(inputFechaSolicitud){
+
+    console.log('Dato a enviar',inputFechaSolicitud)
+
+
+
+  }
 
  

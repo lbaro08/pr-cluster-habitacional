@@ -70,19 +70,48 @@ publicaciones.forEach(pub => {
         <div class="comment-item">
           <strong>${com.usuario}:</strong> ${com.texto}
         </div>`).join('')}
-      <form class="comment-form mt-3">
+      <form class="formNuevoComentario comment-form mt-3" data-id-Publicacion="${pub.id}">
         <div class="mb-2">
           <label class="form-label">Agregar un comentario:</label>
-          <textarea class="form-control" rows="2" placeholder="Escribe tu comentario..."></textarea>
+          <textarea class="inputComentario form-control" rows="2" placeholder="Escribe tu comentario..."></textarea>
         </div>
-        <button type="submit" class="btn btn-primary btn-sm">Comentar</button>
+        <button id="btnComentar" type="submit" class="btn btn-primary btn-sm">Comentar</button>
       </form>
     </div>
   `;
 
   contenedor.appendChild(card);
 });
+
+
+document.querySelectorAll(".formNuevoComentario").forEach(form => {
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const inputComentario = form.querySelector(".inputComentario");
+    const valorComentario = inputComentario.value;
+    const pubId = form.dataset.idPublicacion;
+
+    if (valorComentario.trim() !== "") {
+      genNuevoComentario(pubId,valorComentario);      
+      inputComentario.value = "";
+    } else {
+      alert("Escribe algo antes de comentar.");
+    }
+  });
 });
 
+});
+
+
+function genNuevoComentario(publicacion_id,comentario_contenido){
+
+  comentarioJSON = [{p_id:publicacion_id,c_contenido:comentario_contenido}];
+  console.log("Datos a enviar",comentarioJSON);
+
+
+
+
+}
 
 
