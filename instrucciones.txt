@@ -1,0 +1,29 @@
+OBJETIVO: 
+Crear una aplicación web para el control administraƟvo de un conjunto de casas. 
+OBJETIVOS ESPECIFICOS. 
+ Tener el control de las personas que rentan o viven la habitación 
+ Tener el control de ingresos y egresos  
+ Tener control de quienes han pagado la mensualidad de mantenimiento 
+ Tener dos roles: El comité e Inquilino 
+Para el comité:  
+1. Deberá tener la capacidad de consultar el estado de cuenta por periodos, ya sea individual 
+o en conjunto 
+2. Ejercer pagos indicando el monto, a quien se le pago, fecha y moƟvo del egreso (además 
+deberá de indicar quien fue el que realizo el movimiento: presidente, secretario o vocal, 
+3. Tener un reporte mensual de las finanzas del mes 
+4. Tener un reporte de informe anual. 
+5. El comité estará formado por tres personas que están habitando el cluster: Presidente, 
+Secretario y Vocal 
+6. Emitir acuse de recibo cada vez que verifique un pago de un inquilino y que sea enviado 
+vía electrónica al inquilino 
+Para el inquilino: 
+1. podrá ejercer pagos de su cuota de mantenimiento de forma mensual, indicando monto, 
+fecha, concepto e importe de recargo si paga extemporaneamente. 
+2. Podrá solicitar el apartado de la palapa y/o alberca. 
+3. Podrá solicitar servicios al comité que tenga relación con el buen servicio y mantenimiento 
+del cluster. Estos deberán de aparecer en la pantalla principal con un estatus si se atendió 
+o no con un comentario (todos podrán visualizar estos mensajes, al esƟlo foro) 
+ El cluster consta de 60 casas 
+ La cuota de mantenimiento es de 650 
+ El recargo es de 50. 
+ 

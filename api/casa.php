@@ -11,8 +11,13 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
     case 'GET':
         if (isset($_GET['c_calle']) && isset($_GET['c_numero'])) {
-            $casa = $dao->obtener($_GET['c_calle'], $_GET['c_numero']);
-            echo json_encode($casa ?: ["error" => "Casa no encontrada"]);
+            if (isset($_GET['disponibilidad'])) {
+                $disponible = $dao->casaDisponible($_GET['c_calle'], $_GET['c_numero']);
+                echo json_encode(['disponible' => $disponible]);
+            } else {
+                $casa = $dao->obtener($_GET['c_calle'], $_GET['c_numero']);
+                echo json_encode($casa ?: ["error" => "Casa no encontrada"]);
+            }
         } else {
             echo json_encode($dao->obtenerTodos());
         }
@@ -21,50 +26,55 @@ switch ($method) {
     case 'POST':
         $data = json_decode(file_get_contents("php://input"), true);
         $casa = new Casa($data);
+        
         if (!$casa->validar()) {
             http_response_code(400);
             echo json_encode(["error" => "Datos inválidos"]);
             break;
         }
-        try {
-            $dao->crear($casa);
-            echo json_encode(["success" => true, "message" => "Casa creada"]);
-        } catch (PDOException $e) {
-            http_response_code(500);
-            echo json_encode(["error" => "Error al crear casa", "detalle" => $e->getMessage()]);
-        }
-        break;
 
-    case 'PUT':
-        $data = json_decode(file_get_contents("php://input"), true);
-        $casa = new Casa($data);
-        if (!$casa->validar()) {
-            http_response_code(400);
-            echo json_encode(["error" => "Datos inválidos"]);
-            break;
-        }
         try {
-            $dao->actualizar($casa);
-            echo json_encode(["success" => true, "message" => "Casa actualizada"]);
-        } catch (PDOException $e) {
-            http_response_code(500);
-            echo json_encode(["error" => "Error al actualizar casa", "detalle" => $e->getMessage()]);
-        }
-        break;
+            if (isset($data['accion'])) {
+                switch ($data['accion']) {
+                    case 'asignar_inquilino':
+                        $resultado = $dao->asignarInquilino(
+                            $casa->c_calle,
+                            $casa->c_numero,
+                            $casa->c_rfc_inquilino
+                        );
+                        echo json_encode(["success" => $resultado, "message" => "Inquilino asignado"]);
+                        break;
 
-    case 'DELETE':
-        $data = json_decode(file_get_contents("php://input"), true);
-        if (!isset($data['c_calle'], $data['c_numero'])) {
-            http_response_code(400);
-            echo json_encode(["error" => "Faltan datos de identificación"]);
-            break;
-        }
-        try {
-            $dao->eliminar($data['c_calle'], $data['c_numero']);
-            echo json_encode(["success" => true, "message" => "Casa eliminada"]);
+                    case 'revocar_inquilino':
+                        $resultado = $dao->revocarInquilino(
+                            $casa->c_calle,
+                            $casa->c_numero,
+                            $casa->c_rfc_inquilino
+                        );
+                        echo json_encode(["success" => $resultado, "message" => "Inquilino revocado"]);
+                        break;
+
+                    case 'modificar_propietario':
+                        $resultado = $dao->modificarPropietario(
+                            $casa->c_calle,
+                            $casa->c_numero,
+                            $casa->c_rfc_propietario
+                        );
+                        echo json_encode(["success" => $resultado, "message" => "Propietario modificado"]);
+                        break;
+
+                    default:
+                        $resultado = $dao->crear($casa);
+                        echo json_encode(["success" => $resultado, "message" => "Casa creada"]);
+                        break;
+                }
+            } else {
+                $resultado = $dao->crear($casa);
+                echo json_encode(["success" => $resultado, "message" => "Casa creada"]);
+            }
         } catch (PDOException $e) {
             http_response_code(500);
-            echo json_encode(["error" => "Error al eliminar casa", "detalle" => $e->getMessage()]);
+            echo json_encode(["error" => "Error en la operación", "detalle" => $e->getMessage()]);
         }
         break;
 

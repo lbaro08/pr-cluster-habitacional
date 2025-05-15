@@ -8,20 +8,35 @@ class CasaDAO {
         $this->pdo = $pdo;
     }
 
-    public function crear(Casa $casa) {
-        $stmt = $this->pdo->prepare("
-            INSERT INTO casa (c_calle, c_numero, c_rfc_propietario, c_rfc_inquilino)
-            VALUES (?, ?, ?, ?)
-        ");
+    public function crear($casa) {
+        $stmt = $this->pdo->prepare("INSERT INTO casa (c_calle, c_numero, c_rfc_propietario) VALUES (?, ?, ?)");
         return $stmt->execute([
-            $casa->c_calle, $casa->c_numero,
-            $casa->c_rfc_propietario, $casa->c_rfc_inquilino
+            $casa->c_calle,
+            $casa->c_numero,
+            $casa->c_rfc_propietario
         ]);
     }
 
-    public function obtenerTodos() {
-        $stmt = $this->pdo->query("SELECT * FROM casa");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function asignarInquilino($calle, $numero, $rfc) {
+        $stmt = $this->pdo->prepare("CALL asignar_inquilino(?, ?, ?)");
+        return $stmt->execute([$calle, $numero, $rfc]);
+    }
+
+    public function revocarInquilino($calle, $numero, $rfc) {
+        $stmt = $this->pdo->prepare("CALL revocar_inquilino(?, ?, ?)");
+        return $stmt->execute([$calle, $numero, $rfc]);
+    }
+
+    public function modificarPropietario($calle, $numero, $rfc) {
+        $stmt = $this->pdo->prepare("CALL modificar_propietario(?, ?, ?)");
+        return $stmt->execute([$calle, $numero, $rfc]);
+    }
+
+    public function casaDisponible($calle, $numero) {
+        $stmt = $this->pdo->prepare("SELECT casa_inquilino_disponible(?, ?) as disponible");
+        $stmt->execute([$calle, $numero]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['disponible'] == 1;
     }
 
     public function obtener($calle, $numero) {
@@ -30,20 +45,9 @@ class CasaDAO {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function actualizar(Casa $casa) {
-        $stmt = $this->pdo->prepare("
-            UPDATE casa 
-            SET c_rfc_propietario = ?, c_rfc_inquilino = ?
-            WHERE c_calle = ? AND c_numero = ?
-        ");
-        return $stmt->execute([
-            $casa->c_rfc_propietario, $casa->c_rfc_inquilino,
-            $casa->c_calle, $casa->c_numero
-        ]);
-    }
-
-    public function eliminar($calle, $numero) {
-        $stmt = $this->pdo->prepare("DELETE FROM casa WHERE c_calle = ? AND c_numero = ?");
-        return $stmt->execute([$calle, $numero]);
+    public function obtenerTodos() {
+        $stmt = $this->pdo->prepare("SELECT * FROM casa");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
