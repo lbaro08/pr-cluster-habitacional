@@ -69,9 +69,9 @@ function genModificarNombre(inputNuevoNombre) {
   }];
 
   console.log("Datos a enviar:", modificarNombreJSON);
-  const URL = "../../../api/";
+  const URL = "../../../api/usuario.php";
 
-  fetch(URL+"usuario.php", {
+  fetch(URL, {
   method: 'PUT',
   body: JSON.stringify(modificarNombreJSON)
 })
