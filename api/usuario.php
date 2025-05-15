@@ -37,7 +37,11 @@ switch ($method) {
             echo json_encode(["error" => "Datos inválidos"]);
             exit;
         }
-        echo json_encode(["success" => $dao->update($usuario)]);
+        $success = $dao->update($usuario);
+        echo json_encode([
+            "status" => $success,
+            "data" => $success ? $usuario : null
+        ]);
         break;
 
     case 'DELETE':
