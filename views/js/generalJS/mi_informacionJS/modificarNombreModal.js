@@ -76,6 +76,7 @@ function genModificarNombre(inputNuevoNombre) {
   body: JSON.stringify(modificarNombreJSON)
 })
   .then(res => console.log(res))
+  .then(data => console.log(data))
   .catch(err => console.error(err))
   ;
 
