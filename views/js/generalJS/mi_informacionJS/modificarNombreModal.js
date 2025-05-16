@@ -61,14 +61,17 @@ function modificarNombreModal() {
 
 
 function genModificarNombre(inputNuevoNombre) {
+const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
 
   const modificarNombreJSON = {
-    u_rfc: 'DIAM930808VCX',
+    u_rfc: usuarioLogueado.rfc,
     u_nombre: inputNuevoNombre,
   };
 
   console.log("Datos a enviar:", modificarNombreJSON);
 
+
+// ///////////////////////////////////SOLICITUD////////////////////////
   fetch(URL, {
     method: 'PUT',
     headers: {
@@ -80,11 +83,18 @@ function genModificarNombre(inputNuevoNombre) {
     .then(data => {
       console.log("Respuesta del servidor:", data);
       if (data.status) {
+      // //////////////////////////////
+      // toto sale bien jeje
         console.log("Nombre modificado exitosamente");
         console.log("Nuevo nombre:", data.data.u_nombre);
+        location.reload(); // Recarga la página actual
+      
+      
       } else {
         console.error("Error al modificar el nombre:", data.error);
       }
     })
-    .catch(err => console.error(err))
+    .catch(err => console.error(err)) // fin fe la solicitud
+// /////////////////////////////////////////////////////////////////////////
+
 }

@@ -83,7 +83,7 @@ function modificarContrasenaModal() {
     const inputConfirmarContrasena = formModificarContrasena.inputConfirmarContrasena.value;
 
     if (inputNuevaContrasena == inputConfirmarContrasena) {
-      genModificarContrasena('rfc_usuario', inputAntiguaContrasena, inputNuevaContrasena, inputConfirmarContrasena);
+      genModificarContrasena(inputAntiguaContrasena, inputNuevaContrasena);
       modal.hide();
     }
     else {
@@ -102,19 +102,19 @@ function modificarContrasenaModal() {
 
 
 
-function genModificarContrasena(u_rfc, u_old_password, u_new_password, u_repeat_password) {
+function genModificarContrasena( u_old_password, u_new_password) {
+  const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
 
   const modificar_usuario_password = {
-    u_rfc: u_rfc,
-    u_old_password: u_old_password,
-    u_new_password: u_new_password,
-    u_repeat_password: u_repeat_password
+    u_rfc: usuarioLogueado.rfc,
+    u_old_password: 'passwords',
+    u_password: "Password1"
   };
 
   console.log("Datos a enviar", modificar_usuario_password);
 
-  fetch('/api/usuario/update', {
-    method: 'POST',
+    fetch('/api/usuario.php', {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
