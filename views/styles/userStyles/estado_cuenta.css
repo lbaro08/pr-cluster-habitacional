@@ -18,6 +18,44 @@ body {
     background-color: white;
     padding: 0.5rem 2rem;
     border-radius: 999px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid black;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
     font-weight: bold;
+  }
+
+  .saldo {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    padding: 1rem 2rem;
+    background-color: #c4c4c4;
+    border-radius: 999px;
+    border: 1px solid black;
+    font-size: larger;
+    font-weight: bold;
+  }
+
+  .abono {
+    background-color: #FFD3B7;
+  }
+
+  .cargo {
+    background-color: #c8e4fc;
+  }
+
+  .detalles {
+    background-color: white;
+    border: 1px solid black;
+  }
+
+  .btn {
+    border-radius: 20px;
+    border: 1px solid black;
+  }
+
+  .btn-custom {
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+  }
+
+  .btn-custom:hover{
+    border: 1px solid black;
+    transform: scale(1.15);
   }
