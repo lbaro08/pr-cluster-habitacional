@@ -46,7 +46,17 @@ class CasaDAO {
     }
 
     public function obtenerTodos() {
-        $stmt = $this->pdo->prepare("SELECT * FROM casa");
+        $stmt = $this->pdo->prepare("
+        SELECT
+        casa.c_calle,
+        casa.c_numero,
+        casa.c_rfc_propietario,
+        propietario.u_nombre AS nombre_propietario,
+        casa.c_rfc_inquilino,
+        inquilino.u_nombre AS nombre_inquilino
+        FROM casa
+        LEFT JOIN usuario propietario ON casa.c_rfc_propietario = propietario.u_rfc
+        LEFT JOIN usuario inquilino ON casa.c_rfc_inquilino = inquilino.u_rfc");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

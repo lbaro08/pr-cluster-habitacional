@@ -26,6 +26,11 @@ class UsuarioDAO {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function readAll() {
+    $stmt = $this->pdo->query("SELECT * FROM usuario");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
     public function update($usuario) {
         try {
             if (!empty($usuario->u_nombre)) {

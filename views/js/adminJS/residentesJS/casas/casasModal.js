@@ -40,7 +40,7 @@ function inquilinoModal(opc) {
 
         <div class="row mb-3">
           <div class="col-6">
-            <input type="text" id="inputCalle" class="form-control" placeholder="Calle">
+            <input type="text" id="inputCalleCasa" class="form-control" placeholder="Calle">
           </div>
           <div class="col-6">
             <input type="text" id="inputNumeroCasa" class="form-control" placeholder="Número" pattern="[0-9]{3}">
@@ -85,22 +85,59 @@ function inquilinoModal(opc) {
 
   function peticionInquilino(peticion){
 
+    inputCalle = document.getElementById('inputCalleCasa').value.trim();
+    inputNumero  = document.getElementById('inputNumeroCasa').value.trim();
+    inputRFC = document.getElementById('inputRFC').value.trim();
 
-    
+    let inputInquilinoRFC;
+    let inputPropietarioRFC;
+    let inputAccion;
+
     switch (peticion) {
         case 1:
-            alert("Agregacion sepsi");
+            inputAccion = 'asignar_inquilino'
+            inputInquilinoRFC = inputRFC;
             break;
         case 0:
-            alert("Eliminacion Sepsi");
+            inputAccion = 'revocar_inquilino'
+            inputInquilinoRFC = inputRFC;
             break;
         case 2:
-            alert("Modificacion Sepsi");
+            inputAccion = 'modificar_propietario'
+            inputPropietarioRFC = inputRFC;
             break;
         default:
-            alert("ALC NO SE QUE PASO");
+            alert(" NO SE QUE PASO");
             break;
     }
+
+    peticionJSON ={
+      c_calle:inputCalle,
+      c_numero:inputNumero,
+      c_rfc_inquilino:inputInquilinoRFC,
+      c_rfc_propietario:inputPropietarioRFC,
+      accion:inputAccion
+    }
+
+    
+    fetch('/api/casa.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(peticionJSON)
+  }).then(res => res.json())
+    .then(data => {
+      console.log("Respuesta del servidor:", data);
+      if (data.success) {
+        alert(' Realizado con exito',inputAccion);
+      } else {
+        alert('Error:  Ocurrio un error al',inputAccion)
+      }
+    })
+    .catch(err => console.error(err));
+    
+    console.log("HI",peticionJSON);
 
 
   }
