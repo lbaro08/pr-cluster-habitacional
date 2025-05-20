@@ -868,10 +868,6 @@ CALL validar_recibo('2025049','0901234567','1','ORTA920606FGH');
 CALL validar_recibo('2025050','1234567899','1','RUIF880707BNM');
 
 
-
-
-
-
-select * from recibo;
-
-select * from estado_cuentas;
+insert into publicacion(f_rfc_usuario, f_titulo, f_contenido) values ('DIAM930808VCX','Fallas de luz','Ultimamente he tenido problemas en los sistemas de luz, alguien mas?');
+insert into comentario(c_id_f, c_rfc_usuario, c_contenido) values (1,'DIAM930808VCX','Estoy de acuerdo');
+insert into comentario(c_id_f, c_rfc_usuario, c_contenido) values (1,'DIAM930808VCX','Yo no estoy de acuerdo');
