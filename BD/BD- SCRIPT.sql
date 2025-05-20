@@ -259,6 +259,9 @@ begin
         SET c_rfc_inquilino = v_u_rfc
         WHERE c_calle = v_c_calle
           AND c_numero = v_c_numero;
+    else
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Casa no Disponible';
     END IF;
 
 end//

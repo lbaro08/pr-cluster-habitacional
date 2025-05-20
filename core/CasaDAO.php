@@ -55,8 +55,8 @@ class CasaDAO {
         casa.c_rfc_inquilino,
         inquilino.u_nombre AS nombre_inquilino
         FROM casa
-        INNER JOIN usuario propietario ON casa.c_rfc_propietario = propietario.u_rfc
-        INNER JOIN usuario inquilino ON casa.c_rfc_inquilino = inquilino.u_rfc");
+        LEFT JOIN usuario propietario ON casa.c_rfc_propietario = propietario.u_rfc
+        LEFT JOIN usuario inquilino ON casa.c_rfc_inquilino = inquilino.u_rfc");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
