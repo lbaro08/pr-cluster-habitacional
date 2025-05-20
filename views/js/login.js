@@ -2,6 +2,7 @@ async function iniciarSesionUsuario() {
   localStorage.clear(); // Borra todo
   const u_rfc = document.getElementById("inputUsuarioRFC").value;
   const u_password = document.getElementById("inputUsuarioPassword").value;
+  const u_tipo = document.getElementById("0").value;
   
   try {
     const respuesta = await fetch('./api/login.php', {
@@ -42,6 +43,7 @@ async function iniciarSesionAdministrador() {
 
   const u_rfc = document.getElementById("inputUsuarioRFC").value;
   const u_password = document.getElementById("inputUsuarioPassword").value;
+  const u_tipo = document.getElementById("1").value;
 
 
 

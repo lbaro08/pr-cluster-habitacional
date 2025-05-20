@@ -76,17 +76,38 @@ function nuevaPublicacionModal() {
   // /////////////////////////////////////////////////
 
   function genNuevaPublicacion(inputTitulo,inputContenido){
+    const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
 
-    console.log(inputTitulo);
-    console.log(inputContenido);
+
     
-    const nuevaPublicacionJSON = [{
-      usuario: "insertar usuario",
-      titulo: inputTitulo,
-      contenido:inputContenido
+    const nuevaPublicacionJSON = {
+      f_rfc_usuario: usuarioLogueado.rfc,
+      f_titulo: inputTitulo,
+      f_contenido:inputContenido
 
-    }];
-
+    };
+    console.log(nuevaPublicacionJSON);
+    ////////////////////////////////// cholichitud
+  fetch("/api/publicaciones.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(nuevaPublicacionJSON)
+  })
+    .then(response => response.json())
+    .then(result => {
+    console.log("Respuesta del servidor:", result);
+      if (result.success) {
+        alert("Publicación creada correctamente");
+        location.reload(); // recargar la página para mostrar la nueva publicación
+      } else {
+        alert("Error: " + result.mensaje);
+      }
+    })
+    .catch(error => {
+      console.error("Error en la solicitud:", error);
+    });
 
   }
 
