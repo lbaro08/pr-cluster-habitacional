@@ -54,7 +54,7 @@ function borrarPublicacionModal(publicacion_id,publicacion_rfc_usuario) {
   function genEliminarPublicacion(publicacion_id,publicacion_rfc_usuario){
     // hay que hacer la logica de que el usuario que la elimno sea el dueño
     const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
-    
+   
     if(usuarioLogueado.tipo=="1"){
     publicacionJSON = {
     id:publicacion_id,

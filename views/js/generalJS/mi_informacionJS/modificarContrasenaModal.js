@@ -83,8 +83,17 @@ function modificarContrasenaModal() {
     const inputConfirmarContrasena = formModificarContrasena.inputConfirmarContrasena.value;
 
     if (inputNuevaContrasena == inputConfirmarContrasena) {
+       const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+      if (!regex.test(inputNuevaContrasena)) {
+      alert("La contraseña debe tener al menos:\n- 8 caracteres\n- Una letra\n- Un número\n(No se permiten símbolos especiales)");
+      
+      }else{
       genModificarContrasena(inputAntiguaContrasena, inputNuevaContrasena);
       modal.hide();
+
+      }
+
     }
     else {
 
@@ -107,8 +116,8 @@ function genModificarContrasena( u_old_password, u_new_password) {
 
   const modificar_usuario_password = {
     u_rfc: usuarioLogueado.rfc,
-    u_old_password: 'passwords',
-    u_password: "Password1"
+    u_old_password: u_old_password,
+    u_password: u_new_password
   };
 
   console.log("Datos a enviar", modificar_usuario_password);
@@ -123,10 +132,11 @@ function genModificarContrasena( u_old_password, u_new_password) {
     .then(data => {
       console.log("Respuesta del servidor:", data);
       if (data.status) {
+        alert("Contraseña Modifica Correctamente");
         console.log("Contraseña modificada exitosamente");
         console.log("Nueva contraseña:", data.data.u_password);
       } else {
-        console.error("Error al modificar el nombre:", data.error);
+        console.error("Error al modificar la contraseña:", data.error);
       }
     })
     .catch(err => console.error(err));
