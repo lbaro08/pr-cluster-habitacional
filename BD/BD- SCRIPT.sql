@@ -664,22 +664,23 @@ INSERT INTO casa (c_calle, c_numero) VALUES
 ('E', '09'),
 ('E', '10');
 
-CALL registrar_usuario('PERE850101ABC', 'Juan Perez', '2291234567', 'passwords');
-CALL registrar_usuario('LOPM900202XYZ', 'Maria Lopez', '2292345678', 'passwords');
-CALL registrar_usuario('REYL950404QWE', 'Lucia Reyes', '2294567890', 'passwords');
-CALL registrar_usuario('ORTA920606FGH', 'Ana Ortiz', '2296789012', 'passwords');
-CALL registrar_usuario('RUIF880707BNM', 'Fernando Ruiz', '2297890123', 'passwords');
-CALL registrar_usuario('GARS890909ZXV', 'Sofia Garcia', '2299012345', 'passwords');
-CALL registrar_usuario('MARP970202UYT', 'Patricia Martinez', '2291236789', 'passwords');
-CALL registrar_usuario('RAMA940404MNB', 'Andrea Ramos', '2293458901', 'passwords');
-CALL registrar_usuario('MEZL980606QAZ', 'Laura Meza', '2295670123', 'passwords');
+CALL registrar_usuario('PERE850101ABC', 'Juan Perez', '2291234567', 'Password1');
+CALL registrar_usuario('LOPM900202XYZ', 'Maria Lopez', '2292345678', 'Password1');
+CALL registrar_usuario('REYL950404QWE', 'Lucia Reyes', '2294567890', 'Password1');
+CALL registrar_usuario('ORTA920606FGH', 'Ana Ortiz', '2296789012', 'Password1');
+CALL registrar_usuario('RUIF880707BNM', 'Fernando Ruiz', '2297890123', 'Password1');
+CALL registrar_usuario('GARS890909ZXV', 'Sofia Garcia', '2299012345', 'Password1');
+CALL registrar_usuario('MARP970202UYT', 'Patricia Martinez', '2291236789', 'Password1');
+CALL registrar_usuario('RAMA940404MNB', 'Andrea Ramos', '2293458901', 'Password1');
+CALL registrar_usuario('MEZL980606QAZ', 'Laura Meza', '2295670123', 'Password1');
 
-CALL registrar_superusuario('GOMC810303JKL', 'Carlos Gomez', '2293456789', 'passwords');
-CALL registrar_superusuario('RAMJ870505RTY', 'Jorge Ramos', '2295678901', 'passwords');
-CALL registrar_superusuario('DIAM930808VCX', 'Miguel Diaz', '2298901234', 'passwords');
-CALL registrar_superusuario('MENR960101POI', 'Raul Mendoza', '2290123456', 'passwords');
-CALL registrar_superusuario('HERG850303LKJ', 'Gabriel Hernandez', '2292347890', 'passwords');
-CALL registrar_superusuario('VILD910505ASD', 'Diego Villar', '2294569012', 'passwords');
+CALL registrar_superusuario('GOMC810303JKL', 'Carlos Gomez', '2293456789', 'Password1');
+CALL registrar_superusuario('RAMJ870505RTY', 'Jorge Ramos', '2295678901', 'Password1');
+CALL registrar_superusuario('DIAM930808VCX', 'Miguel Diaz', '2298901234', 'Password1');
+CALL registrar_superusuario('MENR960101POI', 'Raul Mendoza', '2290123456', 'Password1');
+CALL registrar_superusuario('HERG850303LKJ', 'Gabriel Hernandez', '2292347890', 'Password1');
+CALL registrar_superusuario('VILD910505ASD', 'Diego Villar', '2294569012', 'Password1');
+
 
 
 insert into reserva_espacio (re_fecha,re_espacio,re_rfc_usuario,re_Detalle) values
