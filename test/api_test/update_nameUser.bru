@@ -6,6 +6,16 @@ meta {
 
 put {
   url: http://localhost/xampp/cluster-habitacional/api/usuario.php
-  body: none
+  body: json
   auth: inherit
+}
+
+body:json {
+  {
+     "u_rfc": "DIAM930808VCX",
+     "u_nombre": "Nombre de prueba",
+     "u_telefono": "2296520020",
+     "u_tipo": "1",
+     "u_password": "2296520020"
+  }
 }

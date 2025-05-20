@@ -18,6 +18,80 @@ body {
   background-color: white;
   padding: 0.5rem 2rem;
   border-radius: 999px;
+  border: 1px solid black;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   font-weight: bold;
+}
+
+.tarjeta {
+  border-radius: 20px;
+  border: 1px solid black;
+}
+
+.btn {
+  background-color: white;
+  border-radius: 20px;
+  border: 1px solid black;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+}
+
+.btn:hover {
+  transform: scale(1.15);
+  border: 1px solid black;
+  background-color: white;
+}
+
+.btn-flotante {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  border-radius: 999px;
+  padding: 10px 20px;
+  border: 1px solid white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  background-color: #d9d9d9;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+}
+
+.btn-flotante:hover {
+  transform: scale(1.15);
+}
+
+.custom-modal {
+  max-width: 700px;
+  max-height: 700px;
+}
+
+.custom-modal .modal-content {
+  background-color: #a8bcf4;
+  border-radius: 15px;
+  border: none;
+}
+
+.custom-modal .modal-header {
+  background-color: white;
+  color: black;
+  border-bottom: none;
+  border-radius: 15px;
+  border: 1px solid black;
+}
+
+.custom-modal .modal-footer {
+  border-top: none;
+}
+
+.custom-body {
+  font-weight: bold;
+  font-size: larger;
+  background-color: white;
+  margin: 15px;
+  border-radius: 15px;
+}
+
+.accept-button {
+  font-size: larger;
+  font-weight: bold;
+  background-color: #d8e4ac;
+  padding: 10px 20px 10px 20px;
 }
