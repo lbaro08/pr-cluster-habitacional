@@ -1,56 +1,46 @@
 document.addEventListener("DOMContentLoaded", function () {
-const serviciosJSON = [
-    {
-        cg_id:'xxxx',
-        cg_nombre:'Limpieza de alberca',
-        cg_descripcion:'Se limpiara la alberca xd',
-        cg_costo:'2300'
-    },
 
-    {
-        cg_id:'xxxx',
-        cg_nombre:'Luz',
-        cg_descripcion:'Se cobrara la luz',
-        cg_costo:'2100'
-    },
+  fetch("/api/cargo.php")
+    .then(response => response.json())
+    .then(async serviciosJSON => {
+      const contenedor = document.getElementById("contenedorVerServicios");
+      const inputBuscar = document.getElementById("inputBuscarServicios"); // Input en el HTML
 
-    {
-        cg_id:'xxxx',
-        cg_nombre:'test3',
-        cg_descripcion:'descripcion 3',
-        cg_costo:'2020'
-    },
+      function renderizarServicios(filtrados) {
+        contenedor.innerHTML = ""; // Limpiar la tabla
 
-    {
-        cg_id:'xxxx',
-        cg_nombre:'test34',
-        cg_descripcion:'descripcion 4',
-        cg_costo:'2300'
-    }
+        filtrados.forEach(servicio => {
+          const tr = document.createElement("tr");
 
-];
+          tr.innerHTML = `
+            <td>${servicio.cg_id}</td>
+            <td>${servicio.cg_nombre}</td>
+            <td>${servicio.cg_descripcion}</td>
+            <td>${servicio.cg_costo}</td>
+          `;
 
-const contenedor = document.getElementById("contenedorVerServicios");
+          contenedor.appendChild(tr);
+        });
+      }
 
-serviciosJSON.forEach(vJSON => {
+      // Mostrar todos al cargar
+      renderizarServicios(serviciosJSON);
 
-const tr = document.createElement("tr");
+      // Filtrar mientras se escribe
+      inputBuscar.addEventListener("input", function () {
+        const texto = inputBuscar.value.toLowerCase().trim();
 
-tr.innerHTML=`
-    <td>${vJSON.cg_id}</td>
-    <td>${vJSON.cg_nombre}</td>
-    <td>${vJSON.cg_descripcion}</td>
-    <td>${vJSON.cg_costo}</td>
-`;
+        const filtrados = serviciosJSON.filter(servicio => {
+          return (
+            servicio.cg_id.toString().toLowerCase().includes(texto) ||
+            servicio.cg_nombre.toLowerCase().includes(texto) ||
+            servicio.cg_descripcion.toLowerCase().includes(texto) ||
+            servicio.cg_costo.toString().toLowerCase().includes(texto)
+          );
+        });
 
+        renderizarServicios(filtrados);
+      });
 
-contenedor.appendChild(tr);
-
-
-
-});
-
-
-
-
+    });
 });
