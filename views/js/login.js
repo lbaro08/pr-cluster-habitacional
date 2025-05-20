@@ -31,7 +31,7 @@ async function iniciarSesionUsuario() {
 
   } catch (error) {
     console.error('Error de red:', error);
-    mensaje.textContent = 'No se pudo conectar con el servidor.';
+    alert("No se puedo iniciar Sesion, intente nuevamente");
   }
 
 }
