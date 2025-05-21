@@ -41,7 +41,7 @@ switch ($method) {
                 case 'cobrar_servicios':
                     if (!isset($data['fecha_cobro'], $data['fecha_limite'])) {
                         http_response_code(400);
-                        echo json_encode(["error" => "Datos incompletos"]);
+                        echo json_encode(["error" => "Datos incompletos2"]);
                         break;
                     }
                     $resultado = $dao->cobrarServicios(

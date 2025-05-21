@@ -1,0 +1,48 @@
+.bienvenida {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.titulo {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 0.5rem 2rem;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+
+ 
+ body {
+        background-color: #dceacb;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 40px auto;
+      
+      padding: 0 20px;
+    }
+    #calendar {
+      max-width: 100%;
+      margin: 0 auto;
+       color: #222 !important; /* texto principal oscuro */
+    }
+    .fc-event.evento-alberca {
+  background-color: #3498db !important;
+  border-color: #2980b9 !important;
+  color: white !important;
+}
+
+.fc-event.evento-palapa {
+  background-color: #f39c12 !important;
+  border-color: #e67e22 !important;
+  color: white !important;
+}
+
+.fc-event.evento-mixto {
+  color: white !important;
+}

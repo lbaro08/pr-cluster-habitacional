@@ -20,18 +20,18 @@ function cobrarServiciosModal() {
         <div class="row mb-3">
           <div class="col-12">
             <label for="fechaCobro" class="form-label">Fecha programada para cobrar el servicio:</label>
-            <input type="date" id="fechaCobro" class="form-control">
+            <input type="date" id="inputFechaCobro" class="form-control">
           </div>
         </div>
 
         <div class="row mb-4">
           <div class="col-12">
             <label for="diasProrroga" class="form-label">Fecha Limite de Pago:</label>
-            <input type="date" id="fechaCobro" class="form-control">
+            <input type="date" id="inputFechaLimite" class="form-control">
           </div>
         </div>
 
-        <button type="button" class="btn btn-primary px-4" onclick="confirmarCobro()">Aceptar</button>
+        <button id='btnCobrarServicios' type="button" class="btn btn-primary px-4" onclick="">Aceptar</button>
       </div>
 
     </div>
@@ -48,4 +48,65 @@ function cobrarServiciosModal() {
     // Mostrar el modal
     const modal = new bootstrap.Modal(document.getElementById('cobrarServiciosModal'));
     modal.show();
+
+    // /////////////////////////////////////////////
+    // ////////even listener
+
+    const btnCobrarServicios = document.getElementById("btnCobrarServicios");
+    btnCobrarServicios.addEventListener('click',function(){
+
+
+      const inputFechaCobro = document.getElementById('inputFechaCobro').value;
+      const inputFechaLimite = document.getElementById('inputFechaLimite').value;
+
+      const date_cobro = new Date(inputFechaCobro);
+      const date_limite = new Date(inputFechaLimite);
+      const date_hoy = new Date();
+      if(date_cobro>= date_hoy && date_limite>=date_cobro){genCobrarServicios(inputFechaCobro,inputFechaLimite);}
+      else{
+        alert("Error en Fecha:\n 1. La fecha debe ser posterior al dia de ayer\n 2. La fecha limite no puede ser anterior a la fecha de cobro");
+        return;}
+
+      
+
+
+    });
+
+  }
+
+
+  function genCobrarServicios(inputFechaCobro,inputFechaLimite){
+
+    cobroJSON = {
+      accion:'cobrar_servicios',
+      fecha_cobro : inputFechaCobro,
+      fecha_limite : inputFechaLimite
+
+
+    }
+    console.log(cobroJSON);
+
+
+    
+    fetch("/api/cargo.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(cobroJSON)
+      })
+        .then(response => response.json())
+        .then(result => {
+        console.log("Respuesta del servidor:", result);
+          if (result.success) {
+            alert("Cargos cobrados correctamente");
+            location.reload(); // recargar la página para mostrar la nueva publicación
+          } else {
+            alert("Error: " + result.mensaje);
+          }
+        })
+        .catch(error => {
+          console.error("Error en la solicitud:", error);
+        });
+
   }

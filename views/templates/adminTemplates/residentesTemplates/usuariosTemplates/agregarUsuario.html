@@ -20,46 +20,43 @@
     <div class="container my-5 form-container">
         <div class="form-box mx-auto" style="max-width: 600px;">
       
-          <form class="mt-4">
+          <form id='formAgregarNuevoUsuario' class="mt-4">
             <div class="mb-3">
               <label for="rfc" class="form-label">RFC:</label>
-              <input type="text" id="rfc" class="form-control">
+              <input type="text" id="inputRfc" class="form-control">
             </div>
       
             <div class="mb-3">
               <label for="nombre" class="form-label">Nombre:</label>
-              <input type="text" id="nombre" class="form-control">
+              <input type="text" id="inputNombre" class="form-control">
             </div>
       
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="telefono" class="form-label">Teléfono:</label>
-                <input type="text" id="telefono" class="form-control">
-              </div>
-              <div class="col-md-6">
-                <label for="correo" class="form-label">Correo:</label>
-                <input type="email" id="correo" class="form-control">
-              </div>
+                <input type="text" id="inputTelefono" class="form-control">
             </div>
-      
-            <div class="row mb-4">
               <div class="col-md-6">
                 <label for="contrasena" class="form-label">Contraseña Temporal:</label>
-                <input type="password" id="contrasena" class="form-control">
+                <input type="password" id="inputContrasena" class="form-control">
               </div>
-              <div class="col-md-6">
+
+      
+            <div class="row mb-4">
+
+              <div class="col-md-12 mt-2">
                 <label for="tipo" class="form-label">Tipo de Usuario:</label>
-                <select id="tipo" class="form-select">
+                <select id="inputTipo" class="form-select">
                     <option value="" disabled selected>Selecciona un tipo</option>
-                    <option value="Inquilino">Inquilino</option>
-                    <option value="Comite">Comite</option>
+                    <option value="0">Inquilino</option>
+                    <option value="1">Comite</option>
                   </select>
                   
               </div>
             </div>
       
             <div class="text-center">
-            <button type="submit" class="btn btn-primary px-4">Aceptar</button>
+            <button id='btnAgregarUsuario'type="submit" class="btn btn-primary px-4">Aceptar</button>
               
             </div>
           </form>
@@ -74,5 +71,6 @@
       
 <!-- Bootstrap JS (opcional si agregas interacciones con JS o modales) -->
 <script src="../../../../../bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../../../js/adminJS/residentesJS/usuariosJS/agregarUsuario.js"></script>
 </body>
 </html>

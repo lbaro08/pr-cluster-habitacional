@@ -1,35 +1,47 @@
 document.addEventListener("DOMContentLoaded", function () {
-const casasJSON = [
-    {c_calle:'A',c_numero:'1',c_duenio:'Luis',c_inquilino:'montse'},
-    {c_calle:'A',c_numero:'2',c_duenio:'montse',c_inquilino:'CrisNo'},
-    {c_calle:'A',c_numero:'3',c_duenio:'Luis',c_inquilino:'montse'},
-    {c_calle:'A',c_numero:'4',c_duenio:'montse',c_inquilino:'CrisNo'},
-    {c_calle:'B',c_numero:'1',c_duenio:'Mar',c_inquilino:'Luis'},
-    {c_calle:'B',c_numero:'2',c_duenio:'Cris',c_inquilino:'No'}
+  fetch("/api/casa.php")
+    .then(response => response.json())
+    .then(async casasJSON => {
+      console.log(casasJSON);
 
-];
+      const contenedor = document.getElementById("contenedorVerCasas");
+      const inputBuscar = document.getElementById("inputBuscarCasa");
 
-const contenedor = document.getElementById("contenedorVerCasas");
+      function renderizarCasas(casasFiltradas) {
+        contenedor.innerHTML = ""; // Limpiar la tabla
 
-casasJSON.forEach(vJSON => {
+        casasFiltradas.forEach(vJSON => {
+          const tr = document.createElement("tr");
 
-const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${vJSON.c_calle}</td>
+            <td>${vJSON.c_numero}</td>
+            <td>${vJSON.c_rfc_propietario}</td>
+            <td>${vJSON.nombre_propietario}</td>
+            <td>${vJSON.c_rfc_inquilino}</td>
+            <td>${vJSON.nombre_inquilino}</td>
+          `;
+          contenedor.appendChild(tr);
+        });
+      }
 
-tr.innerHTML=`
-    <td>${vJSON.c_calle}</td>
-    <td>${vJSON.c_numero}</td>
-    <td>${vJSON.c_duenio}</td>
-    <td>${vJSON.c_inquilino}</td>
-`;
+      renderizarCasas(casasJSON);
 
+      inputBuscar.addEventListener("input", function () {
+        const texto = inputBuscar.value.toLowerCase();
 
-contenedor.appendChild(tr);
+        const filtrados = casasJSON.filter(casa => {
+          return (
+            (casa.c_calle || "").toLowerCase().includes(texto) ||
+            (casa.c_numero || "").toLowerCase().includes(texto) ||
+            (casa.c_rfc_inquilino || "").toLowerCase().includes(texto) ||
+            (casa.c_rfc_propietario || "").toLowerCase().includes(texto) ||
+            (casa.nombre_inquilino || "").toLowerCase().includes(texto) ||
+            (casa.nombre_propietario || "").toLowerCase().includes(texto)
+          );
+        });
 
-
-
-});
-
-
-
-
+        renderizarCasas(filtrados);
+      });
+    });
 });

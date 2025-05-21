@@ -20,11 +20,11 @@ function eliminarServicioModal() {
         <div class="row mb-4 text-start">
           <div class="col-12">
             <label for="inputID" class="form-label fw-semibold">ID del Servicio:</label>
-            <input type="text" id="inputID" class="form-control" placeholder="ID">
+            <input type="text" id="inputIdEliminar" class="form-control" placeholder="ID">
           </div>
         </div>
 
-        <button type="button" class="btn btn-danger px-4" onclick="peticionEliminarServicio()">Eliminar</button>
+        <button id="btnEliminarServicio" type="button" class="btn btn-danger px-4" onclick="">Eliminar</button>
       </div>
 
     </div>
@@ -40,4 +40,52 @@ function eliminarServicioModal() {
     // Mostrar el modal
     const modal = new bootstrap.Modal(document.getElementById('eliminarServicioModal'));
     modal.show();
+
+    // ///////////////////////////
+    // event listener
+    // ////////////////////////////////
+    
+    const btnEliminarServicio = document.getElementById('btnEliminarServicio');
+
+    btnEliminarServicio.addEventListener('click',function(evenet){
+
+      const inputId = document.getElementById('inputIdEliminar').value;
+
+      // Validaciones (mismos regex del PHP)
+      const validaciones = {
+        id: /^[A-Za-z0-9]{4}$/.test(inputId)
+
+      };
+
+      if (!validaciones.id) {
+        alert("ID inválido (debe tener exactamente 4 caracteres alfanuméricos).");
+        return;
+      }
+
+      genEliminarServicio(inputId);
+      
+    });
+  
+  }
+
+  function genEliminarServicio(inputId){
+    console.log(inputId)
+    fetch(`/api/cargo.php?cg_id=${inputId}`, {
+      method: "DELETE"
+    })
+    .then(response => response.json())
+        .then(result => {
+        console.log("Respuesta del servidor:", result);
+          if (result.success) {
+            alert("Se elimino correctamente");
+            location.reload(); // recargar la página para mostrar la nueva publicación
+          } else {
+            alert("Error: " + result.mensaje);
+          }
+        })
+        .catch(error => {
+          console.error("Error en la solicitud:", error);
+        });
+
+    
   }

@@ -38,7 +38,10 @@ class ReservaEspacioDAO {
     }
 
     public function obtenerTodas() {
-        $stmt = $this->pdo->prepare("SELECT * FROM reserva_espacio ORDER BY re_fecha");
+        $stmt = $this->pdo->prepare("
+        SELECT reserva_espacio.*,u_nombre FROM reserva_espacio
+        inner JOIN usuario u on reserva_espacio.re_rfc_usuario = u.u_rfc
+        ORDER BY re_fecha");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

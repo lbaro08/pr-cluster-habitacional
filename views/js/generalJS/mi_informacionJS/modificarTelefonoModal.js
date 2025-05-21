@@ -78,16 +78,18 @@ function modificarTelefonoModal() {
 
 
 function genModificarTelefono(inputNuevoTelefono) {
+const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
 
   const modificar_usuario_telefonoJSON = {
-    u_rfc: 'rfc',
+    u_rfc: usuarioLogueado.rfc,
     u_telefono: inputNuevoTelefono
   };
 
   console.log("Datos a enviar:", modificar_usuario_telefonoJSON);
 
-  fetch('/api/usuario/update', {
-    method: 'POST',
+// ///////////////////////////////////SOLICITUD////////////////////////
+    fetch('/api/usuario.php', {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -97,8 +99,12 @@ function genModificarTelefono(inputNuevoTelefono) {
     .then(data => {
       console.log("Respuesta del servidor:", data);
       if (data.status) {
+        // /////////////////////////
+        // ////////////// SI TODO SALE BIEN
         console.log("Telefono modificado exitosamente");
         console.log("Nuevo telefono:", data.data.u_telefono);
+        location.reload(); // Recarga la página actual
+
       } else {
         console.error("Error al modificar el nombre:", data.error);
       }

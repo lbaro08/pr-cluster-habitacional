@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Agenda de Reservas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../styles/generalStyles/calendario_espacio.css" rel="stylesheet">
+</head>
+<body>
+<div class="container py-5">
+  <div class="bienvenida mx-auto text-center position-relative" style="max-width: 100%;">
+    <div class="titulo ">Agenda de Espacios Reservados</div>
+
+  <div style="display: flex; gap: 20px; margin-bottom: 20px; align-items: center; font-family: sans-serif;">
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <div style="width: 20px; height: 20px; background-color: #3498db; border-radius: 4px;"></div>
+    <span>Alberca</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <div style="width: 20px; height: 20px; background-color: #f39c12; border-radius: 4px;"></div>
+    <span>Palapa</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <div style="width: 20px; height: 20px; background: linear-gradient(to right, #3498db, #f39c12); border-radius: 4px;"></div>
+    <span>Alberca y Palapa</span>
+  </div>
+</div>
+
+  <div id="calendar"></div>
+
+<div class="d-flex justify-content-center my-4">
+  <button class="btn btn-success btn-lg" type="button" onclick="history.back()">Regresar</button>
+</div>
+        
+
+ 
+    
+  
+
+
+  </div>
+</div>
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
+  <script src="../../../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../js/generalJS/solicitar_espacioJS/contenedorVerAgenda.js"></script>
+</body>
+</html>

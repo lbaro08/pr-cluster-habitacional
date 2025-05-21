@@ -1,47 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
-const publicaciones = [
-  {
-    id:123,
-    usuario: "Carlos",
-    titulo: "Mi primera publicación",
-    contenido: "Este es el contenido de la publicación número uno.",
-    comentarios: [
-      { usuario: "Lucía", texto: "¡Buen post!" },
-      { usuario: "Marco", texto: "Gracias por compartir." }
-    ]
-  },
-  {
-    id:12345,
-    usuario: "Andrea",
-    titulo: "Reflexión del día",
-    contenido: "Hoy aprendí algo importante sobre la perseverancia.",
-    comentarios: [
-      { usuario: "Leo", texto: "Inspirador." }
-    ]
-  },
-   {
-    id:1515,
-    usuario: "Yamileth",
-    titulo: "Reflexión del día",
-    contenido: "Hoy aprendí algo importante sobre la perseverancia.",
-    comentarios: [
-      { usuario: "Leo", texto: "Inspirador." }
-    ]
-  },
-   {
-    id:515155,
-    usuario: "Monchirrat",
-    titulo: "Reflexión del día",
-    contenido: "Hoy aprendí algo importante sobre la perseverancia.",
-    comentarios: [
-      { usuario: "Leo", texto: "Inspirador." }
-    ]
-  }
-];
+  fetch("/api/publicaciones.php")
+  .then(response => response.json())
+  .then(async publicaciones => {
+    // Para cada publicación, pedimos sus comentarios y los agregamos
+    const publicacionesConComentarios = await Promise.all(publicaciones.map(async pub => {
+      const resComentarios = await fetch(`/api/comentarios.php?publicacion_id=${pub.f_id}`);
+      const comentarios = await resComentarios.json();
+      return { ...pub, comentarios: comentarios };
+    }));
 
-const contenedor = document.getElementById("contenedorPublicaciones");
+    console.log("Publicaciones con comentarios:", publicacionesConComentarios);
+   // ////////////////////
+   const contenedor = document.getElementById("contenedorPublicaciones");
 
-publicaciones.forEach(pub => {
+publicacionesConComentarios.forEach(pub => {
   const card = document.createElement("div");
   card.className = "card mb-4 shadow-sm";
 
@@ -53,24 +25,24 @@ publicaciones.forEach(pub => {
         ⋮
       </button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#" onclick="borrarPublicacionModal(${pub.id})">Eliminar comentario</a></li>
+        <li><a class="dropdown-item" href="#" onclick="borrarPublicacionModal(${pub.f_id},'${pub.f_rfc_usuario}')">Eliminar Publicacion</a></li>
       </ul>
     </div>
 
     <!-- Publicacion -->
     <div class="post-title">
-      <strong>${pub.usuario}:</strong> ${pub.titulo}
+     ${pub.f_fecha.split(" ")[0]} <strong> ${pub.f_rfc_usuario}:</strong> ${pub.f_titulo}
     </div>
     <div class="post-content">
-      <p>${pub.contenido}</p>
+      <p>${pub.f_contenido}</p>
     </div>
     <div class="comments-section">
       <h6 class="mb-3">💬 Comentarios</h6>
       ${pub.comentarios.map(com => `
         <div class="comment-item">
-          <strong>${com.usuario}:</strong> ${com.texto}
+          <strong>${com.c_rfc_usuario}:</strong> ${com.c_contenido}
         </div>`).join('')}
-      <form class="formNuevoComentario comment-form mt-3" data-id-Publicacion="${pub.id}">
+      <form class="formNuevoComentario comment-form mt-3" data-id-Publicacion="${pub.f_id}">
         <div class="mb-2">
           <label class="form-label">Agregar un comentario:</label>
           <textarea class="inputComentario form-control" rows="2" placeholder="Escribe tu comentario..."></textarea>
@@ -101,13 +73,47 @@ document.querySelectorAll(".formNuevoComentario").forEach(form => {
   });
 });
 
+
+
+  });// fin del fetch
+
+
+
+
 });
 
 
 function genNuevoComentario(publicacion_id,comentario_contenido){
-
-  comentarioJSON = [{p_id:publicacion_id,c_contenido:comentario_contenido}];
+ const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
+  
+  comentarioJSON = {
+    c_id_f:publicacion_id,
+    c_rfc_usuario:usuarioLogueado.rfc,    
+    c_contenido:comentario_contenido};
   console.log("Datos a enviar",comentarioJSON);
+
+  fetch("/api/comentarios.php",{
+    method:"POST",
+    headers:
+    {"Content-Type":"application/json"},
+    body: JSON.stringify(comentarioJSON)
+  }).then(response => response.json())
+    .then(result =>{
+      console.log("Respuesta del servidor",result);
+      if(result.success){
+        alert("Comentario creado Correctamente");
+        location.reload();
+      }else{
+        alert("Error: ",result.mensaje)
+      }
+
+    })
+    .catch(error => {
+
+      console.error("Error en la solicitud",error);
+
+
+    });
 
 
 

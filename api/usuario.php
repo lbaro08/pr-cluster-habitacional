@@ -25,7 +25,8 @@ switch ($method) {
             $res = $dao->read($rfc);
             echo $res ? json_encode($res) : json_encode(["error" => "No encontrado"]);
         } else {
-            echo json_encode(["error" => "RFC requerido"]);
+            $res = $dao->readAll();
+            echo json_encode($res);
         }
         break;
 

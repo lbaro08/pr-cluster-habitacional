@@ -259,6 +259,9 @@ begin
         SET c_rfc_inquilino = v_u_rfc
         WHERE c_calle = v_c_calle
           AND c_numero = v_c_numero;
+    else
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Casa no Disponible';
     END IF;
 
 end//
@@ -612,74 +615,74 @@ from movimiento_cxc_recibo where v_estado != '0' order by v_id_cxc ,v_tipo desc;
 -- ---------------------------------------------------------------------
 -- --------------------------------------------------------------------
 -- ---------------------------------------------------------------------
-INSERT INTO casa (c_calle, c_numero) VALUES
-('A', '01'),
-('A', '02'),
-('A', '03'),
-('A', '04'),
-('A', '05'),
-('A', '06'),
-('A', '07'),
-('A', '08'),
-('A', '09'),
-('A', '10'),
-('B', '01'),
-('B', '02'),
-('B', '03'),
-('B', '04'),
-('B', '05'),
-('B', '06'),
-('B', '07'),
-('B', '08'),
-('B', '09'),
-('B', '10'),
-('C', '01'),
-('C', '02'),
-('C', '03'),
-('C', '04'),
-('C', '05'),
-('C', '06'),
-('C', '07'),
-('C', '08'),
-('C', '09'),
-('C', '10'),
-('D', '01'),
-('D', '02'),
-('D', '03'),
-('D', '04'),
-('D', '05'),
-('D', '06'),
-('D', '07'),
-('D', '08'),
-('D', '09'),
-('D', '10'),
-('E', '01'),
-('E', '02'),
-('E', '03'),
-('E', '04'),
-('E', '05'),
-('E', '06'),
-('E', '07'),
-('E', '08'),
-('E', '09'),
-('E', '10');
+CALL registrar_usuario('PERE850101ABC', 'Juan Perez', '2291234567', 'Password1');
+CALL registrar_usuario('LOPM900202XYZ', 'Maria Lopez', '2292345678', 'Password1');
+CALL registrar_usuario('REYL950404QWE', 'Lucia Reyes', '2294567890', 'Password1');
+CALL registrar_usuario('ORTA920606FGH', 'Ana Ortiz', '2296789012', 'Password1');
+CALL registrar_usuario('RUIF880707BNM', 'Fernando Ruiz', '2297890123', 'Password1');
+CALL registrar_usuario('GARS890909ZXV', 'Sofia Garcia', '2299012345', 'Password1');
+CALL registrar_usuario('MARP970202UYT', 'Patricia Martinez', '2291236789', 'Password1');
+CALL registrar_usuario('RAMA940404MNB', 'Andrea Ramos', '2293458901', 'Password1');
+CALL registrar_usuario('MEZL980606QAZ', 'Laura Meza', '2295670123', 'Password1');
 
-CALL registrar_usuario('PERE850101ABC', 'Juan Perez', '2291234567', 'passwords');
-CALL registrar_usuario('LOPM900202XYZ', 'Maria Lopez', '2292345678', 'passwords');
-CALL registrar_usuario('REYL950404QWE', 'Lucia Reyes', '2294567890', 'passwords');
-CALL registrar_usuario('ORTA920606FGH', 'Ana Ortiz', '2296789012', 'passwords');
-CALL registrar_usuario('RUIF880707BNM', 'Fernando Ruiz', '2297890123', 'passwords');
-CALL registrar_usuario('GARS890909ZXV', 'Sofia Garcia', '2299012345', 'passwords');
-CALL registrar_usuario('MARP970202UYT', 'Patricia Martinez', '2291236789', 'passwords');
-CALL registrar_usuario('RAMA940404MNB', 'Andrea Ramos', '2293458901', 'passwords');
-CALL registrar_usuario('MEZL980606QAZ', 'Laura Meza', '2295670123', 'passwords');
+CALL registrar_superusuario('GOMC810303JKL', 'Carlos Gomez', '2293456789', 'Password1');
+CALL registrar_superusuario('RAMJ870505RTY', 'Jorge Ramos', '2295678901', 'Password1');
+CALL registrar_superusuario('DIAM930808VCX', 'Miguel Diaz', '2298901234', 'Password1');
+CALL registrar_superusuario('MENR960101POI', 'Raul Mendoza', '2290123456', 'Password1');
+CALL registrar_superusuario('HERG850303LKJ', 'Gabriel Hernandez', '2292347890', 'Password1');
+CALL registrar_superusuario('VILD910505ASD', 'Diego Villar', '2294569012', 'Password1');
 
-CALL registrar_superusuario('GOMC810303JKL', 'Carlos Gomez', '2293456789', 'passwords');
-CALL registrar_superusuario('RAMJ870505RTY', 'Jorge Ramos', '2295678901', 'passwords');
-CALL registrar_superusuario('DIAM930808VCX', 'Miguel Diaz', '2298901234', 'passwords');
-CALL registrar_superusuario('MENR960101POI', 'Raul Mendoza', '2290123456', 'passwords');
-CALL registrar_superusuario('HERG850303LKJ', 'Gabriel Hernandez', '2292347890', 'passwords');
-CALL registrar_superusuario('VILD910505ASD', 'Diego Villar', '2294569012', 'passwords');
+INSERT INTO casa (c_calle, c_numero,c_rfc_propietario) VALUES
+('A', '01','DIAM930808VCX'),
+('A', '02','DIAM930808VCX'),
+('A', '03','DIAM930808VCX'),
+('A', '04','DIAM930808VCX'),
+('A', '05','DIAM930808VCX'),
+('A', '06','DIAM930808VCX'),
+('A', '07','DIAM930808VCX'),
+('A', '08','DIAM930808VCX'),
+('A', '09','DIAM930808VCX'),
+('A', '10','DIAM930808VCX'),
+('B', '01','DIAM930808VCX'),
+('B', '02','DIAM930808VCX'),
+('B', '03','DIAM930808VCX'),
+('B', '04','DIAM930808VCX'),
+('B', '05','DIAM930808VCX'),
+('B', '06','DIAM930808VCX'),
+('B', '07','DIAM930808VCX'),
+('B', '08','DIAM930808VCX'),
+('B', '09','DIAM930808VCX'),
+('B', '10','DIAM930808VCX'),
+('C', '01','DIAM930808VCX'),
+('C', '02','DIAM930808VCX'),
+('C', '03','DIAM930808VCX'),
+('C', '04','DIAM930808VCX'),
+('C', '05','DIAM930808VCX'),
+('C', '06','DIAM930808VCX'),
+('C', '07','DIAM930808VCX'),
+('C', '08','DIAM930808VCX'),
+('C', '09','DIAM930808VCX'),
+('C', '10','DIAM930808VCX'),
+('D', '01','DIAM930808VCX'),
+('D', '02','DIAM930808VCX'),
+('D', '03','DIAM930808VCX'),
+('D', '04','DIAM930808VCX'),
+('D', '05','REYL950404QWE'),
+('D', '06','REYL950404QWE'),
+('D', '07','REYL950404QWE'),
+('D', '08','REYL950404QWE'),
+('D', '09','REYL950404QWE'),
+('D', '10','REYL950404QWE'),
+('E', '01','REYL950404QWE'),
+('E', '02','PERE850101ABC'),
+('E', '03','PERE850101ABC'),
+('E', '04','PERE850101ABC'),
+('E', '05','PERE850101ABC'),
+('E', '06','PERE850101ABC'),
+('E', '07','PERE850101ABC'),
+('E', '08','PERE850101ABC'),
+('E', '09','PERE850101ABC'),
+('E', '10','PERE850101ABC');
 
 
 insert into reserva_espacio (re_fecha,re_espacio,re_rfc_usuario,re_Detalle) values
@@ -868,10 +871,6 @@ CALL validar_recibo('2025049','0901234567','1','ORTA920606FGH');
 CALL validar_recibo('2025050','1234567899','1','RUIF880707BNM');
 
 
-
-
-
-
-select * from recibo;
-
-select * from estado_cuentas;
+insert into publicacion(f_rfc_usuario, f_titulo, f_contenido) values ('DIAM930808VCX','Fallas de luz','Ultimamente he tenido problemas en los sistemas de luz, alguien mas?');
+insert into comentario(c_id_f, c_rfc_usuario, c_contenido) values (1,'DIAM930808VCX','Estoy de acuerdo');
+insert into comentario(c_id_f, c_rfc_usuario, c_contenido) values (1,'DIAM930808VCX','Yo no estoy de acuerdo');

@@ -1,4 +1,4 @@
-function borrarPublicacionModal(publicacion_id) {
+function borrarPublicacionModal(publicacion_id,publicacion_rfc_usuario) {
 
     const anterior = document.getElementById('borrarPublicacionModal');
     if (anterior) anterior.remove();
@@ -41,7 +41,7 @@ function borrarPublicacionModal(publicacion_id) {
     const btnEliminarPublicacion = document.getElementById("btnEliminarPublicacion");
 
     btnEliminarPublicacion.addEventListener("click", function(event) {
-        genEliminarPublicacion(publicacion_id);
+        genEliminarPublicacion(publicacion_id,publicacion_rfc_usuario);
         modal.hide();
   });// cierre del addevent al btn  
   
@@ -51,12 +51,41 @@ function borrarPublicacionModal(publicacion_id) {
 }// fin del modal
 
 
-  function genEliminarPublicacion(publicacion_id){
+  function genEliminarPublicacion(publicacion_id,publicacion_rfc_usuario){
     // hay que hacer la logica de que el usuario que la elimno sea el dueño
+    const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
+   
+    if(usuarioLogueado.tipo=="1"){
+    publicacionJSON = {
+    id:publicacion_id,
+    rfc_usuario:publicacion_rfc_usuario};
 
-    console.log("Datos para enviar",publicacion_id);
+    }else
+    publicacionJSON = {
+    id:publicacion_id,
+    rfc_usuario:usuarioLogueado.rfc};
+
+    console.log("Datos para enviar",publicacionJSON);
+
+  fetch(`/api/publicaciones.php?id=${publicacionJSON.id}&rfc=${publicacionJSON.rfc_usuario}`,{
+    method:"DELETE"
+  }).then(response => response.json())
+    .then(result =>{
+      console.log("Respuesta del servidor",result);
+      if(result.success){
+        alert("Publicacion Eliminada Correctamente");
+        location.reload();
+      }else{
+        alert("Error Aqui: ",result.mensaje)
+      }
+
+    })
+    .catch(error => {
+
+      console.error("Error en la solicitud",error);
 
 
+    });
 
 
   }
