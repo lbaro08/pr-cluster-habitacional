@@ -10,15 +10,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET':
-        if (isset($_GET['fecha'])) {
-            $reservas = $dao->obtenerPorFecha($_GET['fecha']);
-            echo json_encode($reservas);
-        }
-        else if (isset($_GET['rfc'])) {
-            $reservas = $dao->obtenerPorUsuario($_GET['rfc']);
-            echo json_encode($reservas);
-        }
-        else if (isset($_GET['verificar'])) {
+     if (isset($_GET['verificar'])) {
             if (!isset($_GET['fecha']) || !isset($_GET['espacio'])) {
                 http_response_code(400);
                 echo json_encode(["error" => "Faltan parámetros para verificar disponibilidad"]);
@@ -26,6 +18,15 @@ switch ($method) {
             }
             $disponible = $dao->verificarDisponibilidad($_GET['fecha'], $_GET['espacio']);
             echo json_encode(["disponible" => $disponible]);
+            
+        }
+        elseif (isset($_GET['fecha'])) {
+            $reservas = $dao->obtenerPorFecha($_GET['fecha']);
+            echo json_encode($reservas);
+        }
+        else if (isset($_GET['rfc'])) {
+            $reservas = $dao->obtenerPorUsuario($_GET['rfc']);
+            echo json_encode($reservas);
         }
         else {
             echo json_encode($dao->obtenerTodas());
