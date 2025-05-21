@@ -1,54 +1,62 @@
 document.addEventListener("DOMContentLoaded", function () {
-const solicitudesJSON = [
-    {
-        s_fecha:'15/11/2020',
-        s_solicitante:'Luis Feliciano',
-        s_palapa:'Si',
-        s_alberca:'No'
-    },
-
-    {
-        s_fecha:'16/11/2020',
-        s_solicitante:'tralalero talala',
-        s_palapa:'Si',
-        s_alberca:'No'
-    },
-
-    {
-        s_fecha:'17/11/2020',
-        s_solicitante:'Valerina capuchina',
-        s_palapa:'Si',
-        s_alberca:'No'
-    },
-
-    {
-        s_fecha:'18/11/2020',
-        s_solicitante:'Luis Galileo galei',
-        s_palapa:'Si',
-        s_alberca:'No'
-    }
-
-];
-
 const contenedor = document.getElementById("contenedorSolicitudes");
 
-solicitudesJSON.forEach(pub => {
+        fetch('/api/reserva_espacio.php')
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Error al obtener las reservas');
+            }
+            return response.json();
+        })
+        .then(solicitudesJSON => {
+            console.log('Todas las reservas:', solicitudesJSON);
 
-const tr = document.createElement("tr");
+           
+            solicitudesJSON.forEach(soli => {
 
-tr.innerHTML=`
-    <td>${pub.s_fecha}</td>
-    <td>${pub.s_solicitante}</td>
-    <td>${pub.s_palapa}</td>
-    <td>${pub.s_alberca}</td>
-`;
+            let re_palapa,re_alberca;    
+
+            switch(soli.re_espacio){
+                case 1:
+                    re_palapa = 'No';
+                    re_alberca = 'Si';
+                    break;
+                case 2:
+                    re_palapa = 'Si';
+                    re_alberca = 'No';
+                    break;
+                case 3:
+                    re_palapa = 'Si';
+                    re_alberca = 'Si';
+                    break;
+                    
+
+            }
+
+            const tr = document.createElement("tr");
+
+            tr.innerHTML=`
+                <td>${soli.re_fecha}</td>
+                <td>${soli.re_rfc_usuario}</td>
+                <td>${soli.u_nombre}</td>
+                <td>${re_palapa}</td>
+                <td>${re_alberca}</td>
+            `;
 
 
-contenedor.appendChild(tr);
+            contenedor.appendChild(tr);
+
+        });
+
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 
 
 
-});
+
+
 
 
 

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mi información</title>
   <link href="../../../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../../styles/userStyles/solicitar_espacio.css" rel="stylesheet" />
+  <link href="../../styles/generalStyles/solicitar_espacio.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -19,7 +19,6 @@
       <div class="row mt-5 g-4 justify-content-center">
         
         <div class="col-12 col-md-4">
-
           <div class="text-center">
             <!-- Imagen -->
             <img src="../../assets/pics/image_alberca.jpg" class="img-fluid mb-2 img_espacio" alt="Imagen de ejemplo">
@@ -50,24 +49,39 @@
               <input class="form-check-input" type="checkbox" id="checkbox_palapa" style="transform: scale(2); width: 20px; height: 20px;">
               <label class="form-check-label ms-2" for="checkbox_palapa"></label>
             </div>
+            
           </div>
 
         </div>
 
-
+    
       
     </div> <!-- Fin de la fila -->
-    <a href="../userTemplates/calendario_espacio.html" class="text-decoration-none text-dark">
-    <button type="button" class="btn btn-primary mt-4" id="btn_solicitar_espacio">Solicitar Fecha</button>
+    <div class="row mt-1 g-4 justify-content-center">
+      <div class="col-6 col-md-4">
+        <p>Fecha de Solicitud:</p>
+        <input type="date" id="inputFechaSolicitud" class="form-control">
+        
+      </div>
+      
+      <div class="col-6 col-md-4">
+        <p>Descripcion:</p>
+        <input type="text" id="inputDetalleSolicitud" class="form-control">
 
-    </a>
+      </div>
 
+    </div>
 
-  
+    
+    <button id='btnSolicitarEspacio' type="button" class="btn btn-primary mt-4" onclick="">Aceptar</button>
+          <a href="../generalTemplates/calendario_espacio.html" class="text-decoration-none text-dark">
+          <button type="button" class="btn btn-primary mt-4" id="btnVerAgenda">Ver Agenda</button>
+        </a>
 
     </div>
   </div>
 
-  <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../../bootstrap/js/bootstrap.min.js"></script>
+  <script src="../../js/generalJS/solicitar_espacioJS/solicitarEspacio.js"></script>
 </body>
 </html>
