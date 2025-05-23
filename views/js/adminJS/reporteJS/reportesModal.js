@@ -93,7 +93,7 @@ function reporteModalMensual() {
       <div class="modal-body text-center" style="background-color: #dff0ff; border-radius: 0 0 1rem 1rem;">
         <p class="mb-4 fs-5 fw-semibold">Seleccione el mes para el reporte:</p>
 
-        <select id="mesSeleccionado" class="form-select mb-4">
+        <select id="inputMesSeleccionado" class="form-select mb-4">
           <option value="" disabled selected>Seleccione un mes</option>
           <option value="01">Enero</option>
           <option value="02">Febrero</option>
@@ -156,7 +156,7 @@ function reporteModalAnual() {
         <div class="modal-body text-center" style="background-color: #dff0ff; border-radius: 0 0 1rem 1rem;">
           <p class="mb-4 fs-5 fw-semibold">Seleccione el año para el reporte:</p>
   
-          <select id="anioSeleccionado" class="form-select mb-4">
+          <select id="inputAnioSeleccionado" class="form-select mb-4">
             ${opcionesAños}
           </select>
   
@@ -180,13 +180,16 @@ function reporteModalAnual() {
 //////////////////////////////////////////////////
 
 function generarReporteMensual(){
+  const mes = document.getElementById("inputMesSeleccionado").value;
 
-  window.location.href = `../..//views/templates/adminTemplates/reportesTemplates/reportes.html`;
+
+  window.location.href = `../..//views/templates/adminTemplates/reportesTemplates/reportes.html?tipoReporte=mensual&mesReporte=${mes}`;
   
 }
 
 function generarReporteAnual(){
-
-  window.location.href = `../..//views/templates/adminTemplates/reportesTemplates/reportes.html`;
+  const anio = document.getElementById("inputAnioSeleccionado").value;
+  
+  window.location.href = `../..//views/templates/adminTemplates/reportesTemplates/reportes.html?tipoReporte=anual&anioReporte=${anio}`;
   
 }

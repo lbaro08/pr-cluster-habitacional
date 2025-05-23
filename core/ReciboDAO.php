@@ -51,4 +51,18 @@ class ReciboDAO {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function obtenerReporte($fecha_inicio, $fecha_fin) {
+    $stmt = $this->pdo->prepare("select recibo.*,cxc.cxc_numero_casa,cxc_calle_casa,cxc_numero_casa from recibo
+                                inner join cxc on recibo.r_id_cxc = cxc.cxc_id
+                                 WHERE r_status = 1
+                                 AND r_fecha_peticion BETWEEN ? AND ?
+                                 group by  cxc.cxc_id
+                                 ");
+    
+    $stmt->execute([$fecha_inicio, $fecha_fin]);
+    
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }
