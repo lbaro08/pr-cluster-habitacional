@@ -126,6 +126,25 @@ primary key (c_id,c_id_f),
 constraint r_publicacion_comentario_id foreign key (c_id_f) references publicacion(f_id) on delete cascade
 );
 
+create table pago(
+    p_id integer auto_increment,
+    c_calle CHAR(1),
+    c_numero CHAR(2),
+    u_rfc char(13),
+    p_fecha datetime default current_timestamp,
+    p_folio CHAR(10),
+    p_monto float,
+
+    primary key (p_id),
+
+    constraint fk_cliente foreign key (u_rfc) references usuario(u_rfc),
+    CONSTRAINT fk_habitacion_casa
+        FOREIGN KEY (c_calle, c_numero)
+        REFERENCES casa(c_calle, c_numero)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
 
 DELIMITER //
 -- -----------------------------------------------------------------------------

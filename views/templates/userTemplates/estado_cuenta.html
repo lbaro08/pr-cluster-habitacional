@@ -16,13 +16,151 @@
 
       <div class="saldo d-flex justify-content-between align-items-center">
         <span class="text-start">Saldo actual:</span>
-        <span class="text-end">$640</span>
+        <span class="text-end" id="saldoActual">$00.00</span>
       </div>
       <div id="contenedor-movimientos" class="mt-4"></div>
 
     </div>
   </div>
 
+  <!-- Modal para pagar -->
+<div class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="modalPagoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content custom">
+      <div class="modal-header justify-content-center position-relative custom-header" style="margin: 4%;">
+        <h3 class="modal-title text-center w-100" id="modalPagoLabel">Realizar Pago</h3>
+        <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body mb-3">
+          <div class="mb-3 custom-header d-flex justify-content-between align-items-center" style="height: 50px; padding: 4%;">
+            <span class="text-start" style="font-weight: bold;">Cargo:</span>
+            <span id="modal-idcargo">#idcargo</span>
+            <span style="font-weight: bold;">Casa:</span>
+            <span id="modal-casa">C/No</span>
+            <span style="font-weight: bold;">Fecha:</span>
+            <span id="modal-fecha">d/m/y</span>
+          </div>
+
+          <div class="mb-3 custom-header d-flex justify-content-between align-items-center" style="height: 50px; padding: 4%;">
+            <span class="text-start">Folio de Transferencia </span>
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" id="folio" required style="border-radius: 30px;">
+          </div>
+      </div>
+      <div class="modal-footer w-100 text-center" style="border-top: none;">
+        <button class="butn-modal" id="btnAceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal detalles de cobro-->
+
+<div class="modal fade" id="modalDetallesCobro" tabindex="-1" aria-labelledby="modalDetallesLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content custom">
+
+      <div class="modal-header justify-content-center position-relative custom-header" style="margin: 4%;">
+        <h3 class="modal-title text-center w-100" id="modalPagoLabel">Detalles de Cobro</h3>
+        <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="mb-3 custom-header d-flex justify-content-between align-items-center" style="height: 50px; padding: 4%;">
+            <span class="text-start" style="font-weight: bold;">Cargo:</span>
+            <span id="modal-idcargo">#idcargo</span>
+            <span style="font-weight: bold;">Casa:</span>
+            <span id="modal-casa">C/No</span>
+            <span style="font-weight: bold;">Fecha:</span>
+            <span id="modal-fecha">d/m/y</span>
+          </div>
+
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead class="table-white">
+              <tr>
+                <th>No</th>
+                <th>Concepto</th>
+                <th>Costo</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-detalles-body">
+              <!-- Aquí se insertarán dinámicamente los detalles -->
+            </tbody>
+            <tfoot>
+              <tr>
+                <td class="text-end"><strong>Total</strong></td>
+                <td colspan="2" id="total" class="fw-bold" style="text-align: right; padding-right: 4%;">$0.00</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal-footer w-100 text-center" style="border-top: none;">
+        <button class="cancel-button" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal detalles de pago -->
+
+<div class="modal fade" id="modalDetallesPago" tabindex="-1" aria-labelledby="modalDetallesLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content custom">
+
+      <div class="modal-header justify-content-center position-relative custom-header" style="margin: 4%;">
+        <h3 class="modal-title text-center w-100" id="modalPagoLabel">Detalles de Pago</h3>
+        <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="mb-3 custom-header d-flex justify-content-between align-items-center" style="height: 50px; padding: 4%;">
+            <span class="text-start" style="font-weight: bold;">Cargo:</span>
+            <span id="modal-idcargo">#idcargo</span>
+            <span style="font-weight: bold;">Casa:</span>
+            <span id="modal-casa" class="text-end">C/No</span>
+        </div>
+
+        <div class="mb-3" style="padding: 4%; background-color: white; border-radius: 15px;">
+          <div class="d-flex justify-content-between mb-2">
+            <p style="font-weight: bold;">Fecha de Petición:</p>
+            <p id="fechaPeticion">-</p>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <p style="font-weight: bold;">Estado:</p>
+            <p id="estado">-</p>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <p style="font-weight: bold;">Fecha de Revisión:</p>
+            <p id="fechaRevision">-</p>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <p style="font-weight: bold;">Revisado por:</p>
+            <p id="revision">-</p>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <p style="font-weight: bold;">Monto:</p>
+            <p id="monto">-</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer w-100 text-center" style="border-top: none;">
+        <button class="cancel-button" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <script src="../../../bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../../js/generalJS/estado_cuentaJS/tarjetas.js"></script>
 </body>
 </html>
