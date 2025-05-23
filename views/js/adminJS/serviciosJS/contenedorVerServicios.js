@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
   fetch("/api/cargo.php")
     .then(response => response.json())
     .then(async serviciosJSON => {

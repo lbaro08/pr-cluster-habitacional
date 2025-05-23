@@ -59,3 +59,32 @@ body {
     border: 1px solid black;
     transform: scale(1.15);
   }
+
+  .custom{
+    background-color: #a8bcf4;
+    border-radius: 15px;
+    border: none;
+  }
+  .custom-header{
+    background-color: white;
+    border-radius: 30px;
+    border-bottom: none;
+    font-size: larger;
+    height: 50px; 
+  }
+
+  .butn-modal{
+    background-color: #d8e4ac;
+    border-radius: 10px;
+    border: none;
+    padding: 0.65rem 1.0rem;
+    margin: 0 auto;
+  }
+
+  .cancel-button{
+    background-color: #ff8484;
+    border-radius: 10px;
+    border: none;
+    padding: 0.65rem 1.0rem;
+    margin: 0 auto;
+  }
