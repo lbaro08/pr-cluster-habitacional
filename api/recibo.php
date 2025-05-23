@@ -22,6 +22,13 @@ switch ($method) {
             $recibos = $dao->obtenerPorCliente($_GET['rfc_cliente']);
             echo json_encode($recibos);
         }
+        else if (isset($_GET['fecha_inicio']) && isset($_GET['fecha_fin'])) {
+            $fecha_inicio = $_GET['fecha_inicio'];
+            $fecha_fin = $_GET['fecha_fin'];
+
+            $recibos = $dao->obtenerReporte($fecha_inicio, $fecha_fin);
+            echo json_encode($recibos);
+        }
         else {
             echo json_encode($dao->obtenerTodos());
         }
