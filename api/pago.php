@@ -4,6 +4,18 @@ require_once '../core/PagoDAO.php';
 require_once '../config/connection.php';
 
 header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_GET['tipo']) && $_GET['tipo'] === 'por_usuario' && isset($_GET['rfc'])) {
+        $rfc = $_GET['rfc'];
+        $pagoDAO = new PagoDAO($pdo);
+        $pagos = $pagoDAO->getByUser($rfc);
+        
+        echo json_encode($pagos);
+        exit;
+    }
+}
+
 $data = json_decode(file_get_contents('php://input'), true);
 
 

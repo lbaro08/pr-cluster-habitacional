@@ -22,6 +22,15 @@ class PagoDAO {
         $pago->p_folio,
         $pago->p_monto
     ]);
-}
+    }
+    public function getByUser($rfc) {
+        $stmt = $this->pdo->prepare("
+            SELECT * FROM pago 
+            WHERE u_rfc = ?
+            ORDER BY p_fecha DESC
+        ");
+        $stmt->execute([$rfc]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
