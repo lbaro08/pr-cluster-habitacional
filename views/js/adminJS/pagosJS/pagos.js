@@ -1,10 +1,3 @@
-const pagos = [
-    { id: '#idpago', monto: 1500, fecha: '2025-05-01', casa: 'BarcossBarcossBarcoss', folio: "123", cliente: "juaniquilador" },
-    { id: '#idpago', monto: 3000, fecha: '2025-05-03', casa: 'papu papu despierta papu',folio: "234", cliente: "juaniquilador"},
-    { id: '#idpago', monto: 2500, fecha: '2025-05-10', casa: 'vayale coooñooooooooo', folio: "345", cliente: "juaniquilador"},
-    { id: '#idpago', monto: 6969, fecha: '2025-05-03', casa: 'papu papu despierta papu', folio: "456", cliente: "juaniquilador"}
-  ];
-
 const contenedor = document.getElementById('contenedor-pagos');
 
 pagos.forEach(mov => {

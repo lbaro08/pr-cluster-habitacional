@@ -78,4 +78,19 @@ class CXCDAO {
         }
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function obtenerDetallesPorCXC($cxc_id) {
+    $stmt = $this->pdo->prepare("
+        SELECT 
+            cargo.cg_nombre, 
+            cargo.cg_descripcion, 
+            cargo.cg_costo 
+        FROM cxc 
+        JOIN cargo ON cxc.cxc_id_cg = cargo.cg_id 
+        WHERE cxc.cxc_id = ?
+    ");
+    $stmt->execute([$cxc_id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }
