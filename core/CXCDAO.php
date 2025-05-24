@@ -70,7 +70,7 @@ class CXCDAO {
 
     public function obtenerMovimientos($calle = null, $numero = null) {
         if ($calle && $numero) {
-            $stmt = $this->pdo->prepare("SELECT * FROM movimiento_cxc_recibo WHERE v_calle_casa = ? AND v_numero_casa = ?");
+            $stmt = $this->pdo->prepare("SELECT * FROM movimiento_cxc_recibo WHERE v_calle_casa = ? AND v_numero_casa = ? ORDER BY v_tipo");
             $stmt->execute([$calle, $numero]);
         } else {
             $stmt = $this->pdo->prepare("SELECT * FROM movimiento_cxc_recibo");
