@@ -88,7 +88,7 @@ function cobrarServiciosModal() {
 
 
     
-    fetch("/api/cargo.php", {
+    fetch("../../../../api/cargo.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

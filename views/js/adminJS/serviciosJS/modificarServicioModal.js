@@ -76,7 +76,7 @@ function modificarServicioMainModal() {
     if (anterior) anterior.remove();
 
 
-    fetch(`/api/cargo.php?cg_id=${inputId}`, {
+    fetch(`../../../../api/cargo.php?cg_id=${inputId}`, {
           method: "GET"
         })
         .then(async response => {
@@ -234,7 +234,7 @@ function modificarServicioMainModal() {
     console.log("Datos a enviar:", modificarServicioJSON);
 
 
-    fetch("/api/cargo.php", {
+    fetch("../../../../api/cargo.php", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"

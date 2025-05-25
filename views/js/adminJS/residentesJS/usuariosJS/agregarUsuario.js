@@ -60,7 +60,7 @@ formAgregarNuevoUsuario.addEventListener('submit',function(event){
 console.log(nuevoUsuarioJSON);
 
 
-    fetch("/api/usuario.php", {
+    fetch("../../../../../api/usuario.php", {
         method: "POST",
         headers: {
         "Content-Type": "application/json"

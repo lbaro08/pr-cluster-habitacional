@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("/api/casa.php")
+  fetch("../../../../../api/casa.php")
     .then(response => response.json())
     .then(async casasJSON => {
       console.log(casasJSON);

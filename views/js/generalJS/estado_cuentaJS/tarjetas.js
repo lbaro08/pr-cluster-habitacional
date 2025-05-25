@@ -40,14 +40,14 @@ function renderizarTarjetas(movimientos) {
   let saldoTotal = 0;
   
   movimientos.forEach(mov => {
-    if(mov.v_tipo == 'Cargo') {
+    if(mov.v_tipo == 'Cargo'||(mov.v_tipo == 'Abono' && mov.v_estado=='1') ) {
       saldoTotal += parseFloat(mov.v_monto) || 0;
     }
   });
   
   // Mostrar el saldo total
   document.getElementById('saldoActual').textContent = `$${saldoTotal.toFixed(2)}`;
-
+console.log(movimientos);
   movimientos.forEach(mov => {
     const fila = document.createElement('div');
     fila.className = 'd-flex align-items-stretch mb-3 gap-3';
@@ -65,17 +65,27 @@ function renderizarTarjetas(movimientos) {
     
     tarjeta.style.flex = '1';
 
+
+    let estadoText = '';
+    
+    switch(mov.v_estado){
+      case '1': {estadoText='Aceptado'; break;}
+      case '0': {estadoText='Rechazado';break;}
+      default: {estadoText='Pendiente';break;}
+    }
+  
+    
     tarjeta.innerHTML = `
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <h6 class="text-uppercase text-start text-muted mb-2">Cargo: ${mov.v_id_cxc}</h6>
+            <h6 class="text-uppercase text-start text-muted mb-2">${mov.v_tipo}: ${mov.v_id_cxc}</h6>
             <small>Casa: ${mov.v_calle_casa || "N/A"} ${mov.v_numero_casa}</small><br>
             <small>Fecha: ${mov.v_fecha_pc || "N/A"}</small>
           </div>
           <div class="text-end">
             <div class="fs-4 fw-bold mb-3">
-              ${!pagar ? `Monto: $${mov.v_monto}` : `Estado: ${mov.v_estado || "N/A"}`}
+              ${!pagar ? `Monto: $${mov.v_monto}` : `Estado: ${estadoText|| "N/A"}`}
             </div>
           </div>
         </div>
@@ -219,6 +229,8 @@ document.getElementById("btnAceptar").addEventListener("click", async () => {
     p_monto: cargo
   };
 
+
+  // codigo mar
   try {
     const response = await fetch("../../../api/pago.php", {
       method: "POST",
@@ -237,4 +249,35 @@ document.getElementById("btnAceptar").addEventListener("click", async () => {
     console.error("Error al enviar el pago:", error);
     alert("Error al registrar el pago.");
   }
+  // codigo fel
+
+
+    const pagoJSON = {
+    r_id_cxc: idCxcSeleccionado,
+    r_folio: folio,
+    r_rfc_usuario_cliente: usuario.rfc,
+    r_monto: cargo
+  };
+    fetch('../../../api/recibo.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(pagoJSON)
+    })
+    .then(response => response.json())
+    .then(respuesta => {
+      if (respuesta.success) {
+        console.log('Pago registrado FELIX:', respuesta.message);
+        // Puedes actualizar el DOM, cerrar modal, mostrar toast, etc.
+      } else if (respuesta.error) {
+        console.error('Error del servidor FELIX:', respuesta.error);
+      }
+    })
+    .catch(error => {
+      console.error('Error de red o JS:', error);
+    });
+
+
+
 });
