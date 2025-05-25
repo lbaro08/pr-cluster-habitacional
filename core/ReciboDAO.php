@@ -47,7 +47,9 @@ class ReciboDAO {
     }
 
     public function obtenerTodos() {
-        $stmt = $this->pdo->prepare("SELECT * FROM recibo");
+        $stmt = $this->pdo->prepare("SELECT recibo.*,c.cxc_calle_casa,c.cxc_numero_casa FROM recibo
+                                      inner join cxc c on recibo.r_id_cxc = c.cxc_id
+                                     WHERE r_status is null group by  c.cxc_id;");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
