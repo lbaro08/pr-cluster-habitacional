@@ -2,9 +2,6 @@ async function iniciarSesionUsuario() {
   localStorage.clear(); // Borra todo
   const u_rfc = document.getElementById("inputUsuarioRFC").value;
   const u_password = document.getElementById("inputUsuarioPassword").value;
-  
-
-  
   try {
     const respuesta = await fetch('./api/login.php', {
       method: 'POST',
@@ -75,4 +72,18 @@ async function iniciarSesionAdministrador() {
     console.error('Error de red:', error);
     alert('No se pudo conectar con el servidor.');
   }
+}
+
+
+
+function mostrarCredenciales() {
+
+
+  alert(
+
+    "Credenciales de acceso\n\nInquilino: \nRFC:\tPERE850101ABC\nPass:\tPassword1\n\nComite:\nRFC:\tDIAM930808VCX\nPass:\tPassword1"
+
+  );
+
+
 }

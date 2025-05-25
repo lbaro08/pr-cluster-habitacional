@@ -37,10 +37,54 @@ switch ($method) {
                     echo json_encode($resultado);
                     break;
 
-                default:
-                    http_response_code(400);
-                    echo json_encode(["error" => "Tipo de consulta no válido"]);
-                    break;
+                    case 'por_usuario':
+                        if (!isset($_GET['rfc'])) {
+                            http_response_code(400);
+                            echo json_encode(["error" => "Falta el RFC del usuario"]);
+                            break;
+                        }
+
+                        require_once '../core/CasaDAO.php';
+                        $casaDAO = new CasaDAO($pdo);
+                        $rfc = $_GET['rfc'];
+
+                        // Buscar todas las casas donde el usuario es propietario o inquilino
+                        $stmt = $pdo->prepare("
+                            SELECT c_calle, c_numero
+                            FROM casa
+                            WHERE c_rfc_propietario = ? OR c_rfc_inquilino = ?
+                        ");
+                        $stmt->execute([$rfc, $rfc]);
+                        $casas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                        if (!$casas) {
+                            echo json_encode([]);
+                            break;
+                        }
+
+                        // Buscar los cargos de esas casas
+                        $resultados = [];
+                        foreach ($casas as $casa) {
+                            $resultado = $dao->obtenerMovimientos($casa['c_calle'], $casa['c_numero']);
+                            $resultados = array_merge($resultados, $resultado);
+                        }
+
+                        echo json_encode($resultados);
+                        break;
+
+                        case 'detalles_cxc':
+                            if (!isset($_GET['cxc_id'])) {
+                                http_response_code(400);
+                                echo json_encode(["error" => "Falta el ID del CXC"]);
+                                break;
+                            }
+                            $resultado = $dao->obtenerDetallesPorCXC($_GET['cxc_id']);
+                            echo json_encode($resultado);
+                        break;
+                    default:
+                        http_response_code(400);
+                        echo json_encode(["error" => "Tipo de consulta no válido"]);
+                        break;
             }
         }
         // Obtener CXC específico o todos
