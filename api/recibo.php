@@ -38,11 +38,6 @@ switch ($method) {
         $data = json_decode(file_get_contents("php://input"), true);
         $recibo = new Recibo($data);
 
-        if (!$recibo->validar()) {
-            http_response_code(400);
-            echo json_encode(["error" => "Datos inválidos"]);
-            break;
-        }
 
         try {
             if (isset($data['accion']) && $data['accion'] === 'validar') {
