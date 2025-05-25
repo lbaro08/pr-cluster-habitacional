@@ -1,24 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("./api/publicaciones.php")
-  .then(response => response.json())
-  .then(async publicaciones => {
-    // Para cada publicación, pedimos sus comentarios y los agregamos
-    const publicacionesConComentarios = await Promise.all(publicaciones.map(async pub => {
-      const resComentarios = await fetch(`/api/comentarios.php?publicacion_id=${pub.f_id}`);
-      const comentarios = await resComentarios.json();
-      return { ...pub, comentarios: comentarios };
-    }));
+  fetch("../../../api/publicaciones.php")
+    .then(response => response.json())
+    .then(async publicaciones => {
+      // Para cada publicación, pedimos sus comentarios y los agregamos
+      const publicacionesConComentarios = await Promise.all(publicaciones.map(async pub => {
+        const resComentarios = await fetch(`../../../api/comentarios.php?publicacion_id=${pub.f_id}`);
+        const comentarios = await resComentarios.json();
+        return { ...pub, comentarios: comentarios };
+      }));
 
-    console.log("Publicaciones con comentarios:", publicacionesConComentarios);
-   // ////////////////////
-   const contenedor = document.getElementById("contenedorPublicaciones");
+      console.log("Publicaciones con comentarios:", publicacionesConComentarios);
+      // ////////////////////
+      const contenedor = document.getElementById("contenedorPublicaciones");
 
-publicacionesConComentarios.forEach(pub => {
-  const card = document.createElement("div");
-  card.className = "card mb-4 shadow-sm";
+      publicacionesConComentarios.forEach(pub => {
+        const card = document.createElement("div");
+        card.className = "card mb-4 shadow-sm";
 
-  // Plantilla HTML dinámica
-  card.innerHTML = `
+        // Plantilla HTML dinámica
+        card.innerHTML = `
      <!-- Botón de opciones -->
     <div class="dropdown position-absolute top-0 end-0 m-2">
       <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -52,65 +52,66 @@ publicacionesConComentarios.forEach(pub => {
     </div>
   `;
 
-  contenedor.appendChild(card);
+        contenedor.appendChild(card);
+      });
+
+
+      document.querySelectorAll(".formNuevoComentario").forEach(form => {
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const inputComentario = form.querySelector(".inputComentario");
+          const valorComentario = inputComentario.value;
+          const pubId = form.dataset.idPublicacion;
+
+          if (valorComentario.trim() !== "") {
+            genNuevoComentario(pubId, valorComentario);
+            inputComentario.value = "";
+          } else {
+            alert("Escribe algo antes de comentar.");
+          }
+        });
+      });
+
+
+
+    });// fin del fetch
+
+
+
+
 });
 
 
-document.querySelectorAll(".formNuevoComentario").forEach(form => {
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
+function genNuevoComentario(publicacion_id, comentario_contenido) {
+  const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
 
-    const inputComentario = form.querySelector(".inputComentario");
-    const valorComentario = inputComentario.value;
-    const pubId = form.dataset.idPublicacion;
-
-    if (valorComentario.trim() !== "") {
-      genNuevoComentario(pubId,valorComentario);      
-      inputComentario.value = "";
-    } else {
-      alert("Escribe algo antes de comentar.");
-    }
-  });
-});
-
-
-
-  });// fin del fetch
-
-
-
-
-});
-
-
-function genNuevoComentario(publicacion_id,comentario_contenido){
- const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
-  
   comentarioJSON = {
-    c_id_f:publicacion_id,
-    c_rfc_usuario:usuarioLogueado.rfc,    
-    c_contenido:comentario_contenido};
-  console.log("Datos a enviar",comentarioJSON);
+    c_id_f: publicacion_id,
+    c_rfc_usuario: usuarioLogueado.rfc,
+    c_contenido: comentario_contenido
+  };
+  console.log("Datos a enviar", comentarioJSON);
 
-  fetch("/api/comentarios.php",{
-    method:"POST",
+  fetch("../../../api/comentarios.php", {
+    method: "POST",
     headers:
-    {"Content-Type":"application/json"},
+      { "Content-Type": "application/json" },
     body: JSON.stringify(comentarioJSON)
   }).then(response => response.json())
-    .then(result =>{
-      console.log("Respuesta del servidor",result);
-      if(result.success){
+    .then(result => {
+      console.log("Respuesta del servidor", result);
+      if (result.success) {
         alert("Comentario creado Correctamente");
         location.reload();
-      }else{
-        alert("Error: ",result.mensaje)
+      } else {
+        alert("Error: ", result.mensaje)
       }
 
     })
     .catch(error => {
 
-      console.error("Error en la solicitud",error);
+      console.error("Error en la solicitud", error);
 
 
     });
