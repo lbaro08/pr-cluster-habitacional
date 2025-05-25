@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("/api/publicaciones.php")
+  fetch("./api/publicaciones.php")
   .then(response => response.json())
   .then(async publicaciones => {
     // Para cada publicación, pedimos sus comentarios y los agregamos
