@@ -229,6 +229,8 @@ document.getElementById("btnAceptar").addEventListener("click", async () => {
     p_monto: cargo
   };
 
+
+  // codigo mar
   try {
     const response = await fetch("../../../api/pago.php", {
       method: "POST",
@@ -247,4 +249,35 @@ document.getElementById("btnAceptar").addEventListener("click", async () => {
     console.error("Error al enviar el pago:", error);
     alert("Error al registrar el pago.");
   }
+  // codigo fel
+
+
+    const pagoJSON = {
+    r_id_cxc: idCxcSeleccionado,
+    r_folio: folio,
+    r_rfc_usuario_cliente: usuario.rfc,
+    r_monto: cargo
+  };
+    fetch('../../../api/recibo.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(pagoJSON)
+    })
+    .then(response => response.json())
+    .then(respuesta => {
+      if (respuesta.success) {
+        console.log('Pago registrado FELIX:', respuesta.message);
+        // Puedes actualizar el DOM, cerrar modal, mostrar toast, etc.
+      } else if (respuesta.error) {
+        console.error('Error del servidor FELIX:', respuesta.error);
+      }
+    })
+    .catch(error => {
+      console.error('Error de red o JS:', error);
+    });
+
+
+
 });

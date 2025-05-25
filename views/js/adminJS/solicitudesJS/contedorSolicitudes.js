@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 const contenedor = document.getElementById("contenedorSolicitudes");
 
-        fetch('/api/reserva_espacio.php')
+        fetch('../../../../api/reserva_espacio.php')
         .then(response => {
             if (!response.ok) {
             throw new Error('Error al obtener las reservas');

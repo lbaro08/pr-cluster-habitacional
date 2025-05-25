@@ -120,7 +120,7 @@ function inquilinoModal(opc) {
     }
 
     
-    fetch('/api/casa.php', {
+    fetch('../../../../../api/casa.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

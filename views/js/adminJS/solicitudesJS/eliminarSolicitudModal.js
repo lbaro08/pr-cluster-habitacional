@@ -64,6 +64,20 @@ function eliminarSolicitudModal() {
 
     console.log('Dato a enviar',inputFechaSolicitud)
 
+      fetch(`../../../../api/reserva_espacio.php?fecha=${inputFechaSolicitud}`, {
+          method: 'DELETE',
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              console.log(data.message);
+          } else {
+              console.error(data.error || 'Error inesperado');
+          }
+      })
+      .catch(error => {
+          console.error('Error en la solicitud:', error);
+      });
 
 
   }
