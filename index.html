@@ -7,6 +7,7 @@
   <title>Cluster Habitacional - Bienvenido</title>
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="views/styles/index.css">
+  <link href="views/styles/adminMenu.css" rel="stylesheet">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -35,7 +36,7 @@
 
         <div class="row pb-3">
           <div class="col-auto p-0">
-            <a href="/views/templates/sobreNosotros.html" class="btn btn-generic"
+            <a onclick="mostrarSobreNosotros()" class="btn btn-generic"
               style="background-color: orange; color: white; border-radius: 0;">
               <i class='bx bx-log-in'></i> Sobre Nosotros
             </a>
@@ -48,6 +49,43 @@
           </div>
         </div> <!-- cierre del primer row-->
 
+        <div class="modal fade" id="modalSobreNosotros" tabindex="-1" aria-labelledby="tituloSobreNosotros"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="titulo" id="tituloSobreNosotros">Sobre Nosotros</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="card shadow p-4">
+                  <h5 class="card-title mb-3">Programación Web - 8J4C</h5>
+                  <p><strong>Horario:</strong> 2:00pm - 3:00pm</p>
+                  <h6 class="mt-4">Equipo de Desarrollo:</h6>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      <div><strong>Luis Feliciano Bautista Romero</strong> - 21020374</div>
+                      <small class="text-muted">DBA, Desarrollador FullStack</small>
+                    </li>
+                    <li class="list-group-item">
+                      <div><strong>Cristopher Eduardo Ascencio Cruz</strong> - 21020366</div>
+                      <small class="text-muted">Desarrollador FullStack, QA</small>
+                    </li>
+                    <li class="list-group-item">
+                      <div><strong>Mar Antoine Amoros Martinez</strong> - 21020339</div>
+                      <small class="text-muted">Desarrollador Frontend</small>
+                    </li>
+                    <li class="list-group-item">
+                      <div><strong>Montserrat Palma Alvario</strong> - 21021155</div>
+                      <small class="text-muted">Diseñadora UI/UX</small>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
     <div class="hero-img">
@@ -55,7 +93,13 @@
     </div>
   </main>
 
+  <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+
   <script src="./views/js/login.js"></script>
+
+  <script>
+    
+  </script>
 </body>
 
 </html>
