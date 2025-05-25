@@ -74,16 +74,12 @@ async function iniciarSesionAdministrador() {
   }
 }
 
-
-
 function mostrarCredenciales() {
+  const modal = new bootstrap.Modal(document.getElementById('modalCredenciales'));
+  modal.show();
+}
 
-
-  alert(
-
-    "Credenciales de acceso\n\nInquilino: \nRFC:\tPERE850101ABC\nPass:\tPassword1\n\nComite:\nRFC:\tDIAM930808VCX\nPass:\tPassword1"
-
-  );
-
-
+function mostrarSobreNosotros() {
+  const modal = new bootstrap.Modal(document.getElementById('modalSobreNosotros'));
+  modal.show();
 }
