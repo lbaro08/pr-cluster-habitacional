@@ -36,18 +36,51 @@
 
         <div class="row pb-3">
           <div class="col-auto p-0">
-            <a onclick="mostrarSobreNosotros()" class="btn btn-generic"
+            <a onclick="mostrarSobreNosotros()" class="btn"
               style="background-color: orange; color: white; border-radius: 0;">
               <i class='bx bx-log-in'></i> Sobre Nosotros
             </a>
           </div>
           <div class="col-auto p-0">
-            <a href="#" class="btn btn-generic" onclick="mostrarCredenciales()"
+            <a href="#" class="btn" onclick="mostrarCredenciales()"
               style="background-color: yellow; color: black; border-radius: 0;">
               <i class='bx bx-id-card'></i> Credenciales
             </a>
           </div>
         </div> <!-- cierre del primer row-->
+
+        <div class="modal fade" id="modalCredenciales" tabindex="-1" aria-labelledby="tituloCredenciales"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="titulo" id="tituloCredenciales">Credenciales de Acceso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="card shadow p-4">
+                  <!-- Credenciales de Inquilino -->
+                  <div class="mb-4">
+                    <h6 class="card-subtitle mb-2 text-primary">Inquilino</h6>
+                    <div class="ms-3">
+                      <p class="mb-1"><strong>RFC:</strong> PERE850101ABC</p>
+                      <p class="mb-0"><strong>Contraseña:</strong> Password1</p>
+                    </div>
+                  </div>
+
+                  <!-- Credenciales de Comité -->
+                  <div>
+                    <h6 class="card-subtitle mb-2 text-primary">Comité</h6>
+                    <div class="ms-3">
+                      <p class="mb-1"><strong>RFC:</strong> DIAM930808VCX</p>
+                      <p class="mb-0"><strong>Contraseña:</strong> Password1</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="modal fade" id="modalSobreNosotros" tabindex="-1" aria-labelledby="tituloSobreNosotros"
           aria-hidden="true">
@@ -96,10 +129,6 @@
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <script src="./views/js/login.js"></script>
-
-  <script>
-    
-  </script>
 </body>
 
 </html>
