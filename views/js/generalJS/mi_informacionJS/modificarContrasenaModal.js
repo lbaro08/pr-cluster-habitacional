@@ -122,7 +122,7 @@ function genModificarContrasena( u_old_password, u_new_password) {
 
   console.log("Datos a enviar", modificar_usuario_password);
 
-    fetch('/api/usuario.php', {
+    fetch('../../../api/usuario.php', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
