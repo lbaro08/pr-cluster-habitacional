@@ -88,7 +88,7 @@ function nuevaPublicacionModal() {
     };
     console.log(nuevaPublicacionJSON);
     ////////////////////////////////// cholichitud
-  fetch("/api/publicaciones.php", {
+  fetch("../../../api/publicaciones.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

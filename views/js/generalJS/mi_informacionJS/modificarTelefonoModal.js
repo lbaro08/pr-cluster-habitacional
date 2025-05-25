@@ -88,7 +88,7 @@ const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
   console.log("Datos a enviar:", modificar_usuario_telefonoJSON);
 
 // ///////////////////////////////////SOLICITUD////////////////////////
-    fetch('/api/usuario.php', {
+    fetch('../../../api/usuario.php', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'

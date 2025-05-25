@@ -67,7 +67,7 @@ function borrarPublicacionModal(publicacion_id,publicacion_rfc_usuario) {
 
     console.log("Datos para enviar",publicacionJSON);
 
-  fetch(`/api/publicaciones.php?id=${publicacionJSON.id}&rfc=${publicacionJSON.rfc_usuario}`,{
+  fetch(`../../../api/publicaciones.php?id=${publicacionJSON.id}&rfc=${publicacionJSON.rfc_usuario}`,{
     method:"DELETE"
   }).then(response => response.json())
     .then(result =>{

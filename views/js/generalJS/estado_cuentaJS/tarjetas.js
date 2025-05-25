@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const rfc = usuarioLogueado.rfc;
 
-  fetch(`/api/cxc.php?tipo=por_usuario&rfc=${rfc}`)
+  fetch(`../../../api/cxc.php?tipo=por_usuario&rfc=${rfc}`)
     .then(response => response.json())
     .then(data => {
       if (data.error) {
@@ -109,7 +109,7 @@ console.log(movimientos);
       let i = 1;
 
       try {
-        const res = await fetch(`/api/cxc.php?tipo=detalles_cxc&cxc_id=${mov.v_id_cxc}`);
+        const res = await fetch(`../../../api/cxc.php?tipo=detalles_cxc&cxc_id=${mov.v_id_cxc}`);
         const detalles = await res.json();
 
         detalles.forEach(det => {
@@ -230,7 +230,7 @@ document.getElementById("btnAceptar").addEventListener("click", async () => {
   };
 
   try {
-    const response = await fetch("/api/pago.php", {
+    const response = await fetch("../../../api/pago.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

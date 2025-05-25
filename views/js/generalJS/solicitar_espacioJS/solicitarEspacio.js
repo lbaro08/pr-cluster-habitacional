@@ -32,7 +32,7 @@
         
     }
 
- fetch(`/api/reserva_espacio.php?verificar=1&fecha=${inputFecha}&espacio=${inputEspacio}`)
+ fetch(`../../../api/reserva_espacio.php?verificar=1&fecha=${inputFecha}&espacio=${inputEspacio}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Error al obtener las reservas');
@@ -74,7 +74,7 @@
     console.log('Datos a enviar',solicitudJSON);
 
 
-        fetch('/api/reserva_espacio.php', {
+        fetch('../../../api/reserva_espacio.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
