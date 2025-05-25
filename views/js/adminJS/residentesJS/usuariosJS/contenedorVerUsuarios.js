@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
 
-    fetch("/api/usuario.php")
+    fetch("../../../../../api/usuario.php")
   .then(response => response.json())
   .then(async usuariosJSON => {
           console.log(usuariosJSON);

@@ -126,7 +126,7 @@ function agregarServicioModal() {
     console.log("Datos a enviar:", agregarServicioJSON);
 
 
-    fetch("/api/cargo.php", {
+    fetch("../../../../api/cargo.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

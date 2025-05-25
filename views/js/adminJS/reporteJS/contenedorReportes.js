@@ -44,7 +44,7 @@ console.log('Dato a enviar Fecha fin:', fechaFin);
 
 
 
-fetch(`/api/recibo.php?fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`)
+fetch(`../../../../api/recibo.php?fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`)
   .then(response => response.json())
   .then(data => {
     console.log('Recibos filtrados:', data);

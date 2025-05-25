@@ -70,7 +70,7 @@ function eliminarServicioModal() {
 
   function genEliminarServicio(inputId){
     console.log(inputId)
-    fetch(`/api/cargo.php?cg_id=${inputId}`, {
+    fetch(`../../../../api/cargo.php?cg_id=${inputId}`, {
       method: "DELETE"
     })
     .then(response => response.json())
