@@ -1,4 +1,4 @@
-# Sistema Web de Gestión de un Cluster Habitacional
+# Sistema de Gestión WEB para un Cluster Habitacional
 
 Este repositorio contiene el desarrollo de un sistema web dinámico desarrollado con PHP y estructurado para facilitar la organización de módulos de usuarios, administradores y componentes comunes. El sistema está diseñado para ejecutarse localmente mediante **XAMPP** (8.2.12).
 
