@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../config/connection.php';
 
 header("Content-Type: application/json");
@@ -31,6 +32,16 @@ try {
         exit;
     }
 
+    // Guardar datos en sesión
+    $_SESSION['usuario'] = [
+        "rfc" => $usuario['u_rfc'],
+        "nombre" => $usuario['u_nombre'],
+        "telefono" => $usuario['u_telefono'],
+        "tipo" => $usuario['u_tipo']
+    ];
+    $_SESSION['loggedin'] = true;
+    $_SESSION['last_activity'] = time();
+
     $stmtCasa = $pdo->prepare("
         SELECT 
             CASE 
@@ -50,7 +61,7 @@ try {
         "usuario" => [
             "rfc" => $usuario['u_rfc'],
             "nombre" => $usuario['u_nombre'],
-            "telefono" => $usuario['u_telefono'],
+            "telefono" => $usuario['u_telefono'], 
             "tipo" => $usuario['u_tipo'], // 0: usuario normal, 1: superusuario
         ],
         "casas" => $casas
@@ -60,4 +71,3 @@ try {
     http_response_code(500);
     echo json_encode(["error" => "Error del servidor", "detalle" => $e->getMessage()]);
 }
-?>
